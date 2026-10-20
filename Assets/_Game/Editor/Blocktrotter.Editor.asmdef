@@ -3,7 +3,8 @@
     "rootNamespace": "Blocktrotter.EditorTools",
     "references": [
         "Blocktrotter.Core",
-        "Blocktrotter.Game"
+        "Blocktrotter.Game",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [
         "Editor"

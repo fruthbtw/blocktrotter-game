@@ -2,7 +2,9 @@
     "name": "Blocktrotter.Game",
     "rootNamespace": "Blocktrotter",
     "references": [
-        "Blocktrotter.Core"
+        "Blocktrotter.Core",
+        "UnityEngine.UI",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

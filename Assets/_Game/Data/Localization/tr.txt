@@ -1,0 +1,15 @@
+# Blocktrotter — Türkçe
+game.level=Bölüm {0}
+game.moves=Hamle {0}  ·  En iyi {1}
+game.pause=Duraklat
+game.hint=İpucu ({0})
+game.undo=Geri Al
+game.restart=Baştan
+pause.title=Duraklatıldı
+pause.resume=Devam Et
+pause.restart=Baştan Başla
+solved.title=Bulmaca Çözüldü!
+solved.moves={0} hamlede çözdün (en iyi {1})
+solved.stars={0} / 3 yıldız
+solved.next=Sonraki
+solved.replay=Tekrar Oyna

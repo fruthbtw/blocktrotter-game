@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c028e04f3f3e19f4baf8be793bffd09e, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: Blocktrotter.Game::Blocktrotter.Data.GameConfig
+  StartingHints: 3
+  TwoStarRatio: 1.5
+  InterstitialEveryLevels: 5
+  LevelsPerTheme: 100
+  BlockSnapSharpness: 22
+  SolvedPanelDelay: 0.4

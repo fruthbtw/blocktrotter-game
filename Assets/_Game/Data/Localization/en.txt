@@ -1,0 +1,15 @@
+# Blocktrotter — English
+game.level=Level {0}
+game.moves=Moves {0}  ·  Best {1}
+game.pause=Pause
+game.hint=Hint ({0})
+game.undo=Undo
+game.restart=Restart
+pause.title=Paused
+pause.resume=Resume
+pause.restart=Restart
+solved.title=Puzzle Solved!
+solved.moves=Solved in {0} moves (best {1})
+solved.stars={0} / 3 stars
+solved.next=Next
+solved.replay=Replay
