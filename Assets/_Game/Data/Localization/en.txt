@@ -37,3 +37,6 @@ hint.empty.body=Watch a short ad to get {0} hint.
 hint.notready=No ad available right now.\nPlease try again in a moment.
 hint.watch=Watch Ad
 hint.cancel=Not now
+settings.privacy_policy=Privacy Policy
+settings.terms=Terms of Service
+settings.privacy_options=Privacy Options

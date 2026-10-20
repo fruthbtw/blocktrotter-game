@@ -52,6 +52,16 @@ namespace Blocktrotter.Data
         [Tooltip("Seconds between each star popping in.")]
         [Min(0f)] public float StarPopInterval = 0.18f;
 
+        [Header("Legal pages (published from legal-site/ to GitHub Pages)")]
+        [Tooltip("Folder URL ending in '/', e.g. https://<user>.github.io/blocktrotter/")]
+        public string LegalBaseUrl = "https://fruthbtw.github.io/blocktrotter/";
+
+        /// <summary>Privacy policy URL for a language code ("en"/"tr").</summary>
+        public string PrivacyUrl(string language) => LegalBaseUrl + (language == "tr" ? "privacy-tr.html" : "privacy-en.html");
+
+        /// <summary>Terms of service URL for a language code ("en"/"tr").</summary>
+        public string TermsUrl(string language) => LegalBaseUrl + (language == "tr" ? "terms-tr.html" : "terms-en.html");
+
         [Header("Background decor")]
         [Tooltip("Drifting decor pieces (petals, snow, ...) on screen at once.")]
         [Min(0)] public int DecorParticleCount = 18;

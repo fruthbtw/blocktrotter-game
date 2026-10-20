@@ -37,3 +37,6 @@ hint.empty.body=Kısa bir reklam izle, {0} ipucu kazan.
 hint.notready=Şu an reklam yok.\nBiraz sonra tekrar dene.
 hint.watch=Reklam İzle
 hint.cancel=Şimdi değil
+settings.privacy_policy=Gizlilik Politikası
+settings.terms=Hizmet Koşulları
+settings.privacy_options=Gizlilik Seçenekleri
