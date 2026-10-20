@@ -1,0 +1,1015 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b8a36a58d3db246bdd707f03eb1945, type: 3}
+  m_Name: LevelDatabase
+  m_EditorClassIdentifier: Blocktrotter.Game::Blocktrotter.Data.LevelDatabase
+  _levels:
+  - Code: ..BB.F..EEEFGAA..FGCDD..GC..........
+    MinMoves: 2
+  - Code: ....EE...C..AA.C..F.GBD.F.GBD...G...
+    MinMoves: 2
+  - Code: .DD...CBB...CGAAF..G..F.......EE....
+    MinMoves: 2
+  - Code: ..DC....DCF...AAF.....BB......GGEE..
+    MinMoves: 2
+  - Code: ......FFF.B..AA.B.C...DDCEE...CGGG..
+    MinMoves: 2
+  - Code: ..CCCDE..GGDEAA..BEF...B.F...B......
+    MinMoves: 2
+  - Code: ......DFFEE.D.AA.CD..GGC.....C.BBB..
+    MinMoves: 2
+  - Code: ......HG..CCHGAAF.HDDDF......E..BB.E
+    MinMoves: 2
+  - Code: HFF...H.....D.AAC.D...C..BBGG..EEE..
+    MinMoves: 2
+  - Code: CC....GHH...GAAF..B..F..BD....BDEEE.
+    MinMoves: 2
+  - Code: .....D..B..DAAB...FF.GG..HHCC....EEE
+    MinMoves: 2
+  - Code: G.....G......BAAE.DB..EHD...FHDCC.F.
+    MinMoves: 2
+  - Code: ...HHHGB....GBAA.D.F...DCF....C.EE..
+    MinMoves: 2
+  - Code: .CBBF..C..FG..AA.G......DDDEE...HH..
+    MinMoves: 2
+  - Code: .C.DG.IC.DGEIAA..E.HBBBE.H......FFF.
+    MinMoves: 2
+  - Code: ...HHH.EE.....AA.D.GGBBD.IIC.....CFF
+    MinMoves: 2
+  - Code: ......DDIGG.AAI...HE.CCCHE.BBB..FFF.
+    MinMoves: 2
+  - Code: IDGG.FIDBBBF.D.AAJ.HHC.J..EC.J..EC..
+    MinMoves: 2
+  - Code: .FGG...F.CCC.AA.E.BBBHE...JH.DIIJH.D
+    MinMoves: 2
+  - Code: BBB.EHDGG.EHD..AAC....JC.KKKJCIIFFF.
+    MinMoves: 2
+  - Code: MMMK.EDJJKIEDBAAI..BG.FF.BGCCCLL.HHH
+    MinMoves: 2
+  - Code: C.BB..CGIIDDLGAAK.LFFEK...ME..JJMHHH
+    MinMoves: 2
+  - Code: JF.HH.JFILLLAAI...CCNNBBMDDDKEMGGGKE
+    MinMoves: 2
+  - Code: .....C.FFEECAA...CD...GGD.....D.BBB.
+    MinMoves: 3
+  - Code: .FF.EE.BB...AAD..G..D..G....CG....C.
+    MinMoves: 3
+  - Code: ........D.F.AAD.F..BBC.....C....GGEE
+    MinMoves: 3
+  - Code: E..CCCEGG..DE..AAD.F...B.F...B.....B
+    MinMoves: 3
+  - Code: .........FFF.AA.B.C.DDB.C..EE.C.GGG.
+    MinMoves: 3
+  - Code: .BB..FEEE..F..AA.FG...DDGC....GC....
+    MinMoves: 3
+  - Code: GG...D.CCCBDAAF.B.E.F...E...........
+    MinMoves: 3
+  - Code: D.BB..D.....AA.H.EG.CH.EG.C...FF....
+    MinMoves: 3
+  - Code: H...FFH.....DAA.C.D...C...BBGG..EEE.
+    MinMoves: 3
+  - Code: ....DDE.....E.AACH.GG.CH.FFF..BBB...
+    MinMoves: 3
+  - Code: ........GG..AAC.....C.FF.DBHHE.DB..E
+    MinMoves: 3
+  - Code: .E.....E.HB.FAAHB.F.D...C.D...CGGG..
+    MinMoves: 3
+  - Code: BF....BF...DBAA.GDH...GCH....C.EEE.C
+    MinMoves: 3
+  - Code: ...D.....D..C.AAEHC...EHG....FG..BBF
+    MinMoves: 3
+  - Code: .G.....G.CC.H.AAFEHDDDFEH.....BB....
+    MinMoves: 3
+  - Code: ..H.....H..G.AAB.GCF.B.DCFE..DC.E...
+    MinMoves: 3
+  - Code: GB..E.GB..E.DAA.FHD...FHD.....CC....
+    MinMoves: 3
+  - Code: ........B...AAB..D.FFGGDHHCC.....EEE
+    MinMoves: 3
+  - Code: HHH.....BIIIAABE..FG.E..FG..D..CCCD.
+    MinMoves: 3
+  - Code: .H.....HC.BBAACF.....F...II.GGDD.EE.
+    MinMoves: 3
+  - Code: .E.....EFFC..AAGC...HGII..H....DDBBB
+    MinMoves: 3
+  - Code: EE.IIHF..C.HFAAC..DB.C..DB.......GG.
+    MinMoves: 3
+  - Code: .D..GG.DBBBF.D.AAFIHHC.JI.EC.J..EC.J
+    MinMoves: 3
+  - Code: .BB...H...DGHEAADGIECCJGIF..J..F..J.
+    MinMoves: 3
+  - Code: J...FFJGG..KAA...K.H.CCE.HIIIEDDDBB.
+    MinMoves: 3
+  - Code: ..CCCEJJ.L.E.AAL..IIDDKKHH...GFFFBBG
+    MinMoves: 3
+  - Code: FLLEEEFIIIGGAA...KMBBB.KMJJ.DD.HHCCC
+    MinMoves: 3
+  - Code: CGBB..CGIIDD.AAEK.LFFEK.L.M...JJMHHH
+    MinMoves: 3
+  - Code: MMMK..DJJKIEDBAAIE.BGFF..BGCCC.LLHHH
+    MinMoves: 3
+  - Code: JFHH..JFILLLAAI...CCNNBBMDDDKEMGGGKE
+    MinMoves: 3
+  - Code: .FFEE..BB.CGAAD.CG..D..G............
+    MinMoves: 4
+  - Code: GG....CCC...AAF.BD..F.BDE.....E.....
+    MinMoves: 4
+  - Code: DD........E.GAABE.G.HBE..FH....F.CC.
+    MinMoves: 4
+  - Code: .DD...CC.GHH.AAGE..BB.E....FF.......
+    MinMoves: 4
+  - Code: ..H.....HB..AAEB.GC.E..GCF...DCF...D
+    MinMoves: 4
+  - Code: FE....FEDH..AADHB.C...B.C........GGG
+    MinMoves: 4
+  - Code: ....DD....CH..AACH...GG.EFFF..EBBB..
+    MinMoves: 4
+  - Code: .....DB...GDB.AAGCBF...CHF...CH..EEE
+    MinMoves: 4
+  - Code: DBB...D.....AACH.EG.CH.EG.........FF
+    MinMoves: 4
+  - Code: C.....C...EHAA.DEHG..D..G....F.BB..F
+    MinMoves: 4
+  - Code: .GGGCC..BH..AABH...D..EE.D.FF..D....
+    MinMoves: 4
+  - Code: .D.....DGG..AAC..EFFC..EHHB.....B...
+    MinMoves: 4
+  - Code: .E.....EFFC.AAHGC...HGII......DDBBB.
+    MinMoves: 4
+  - Code: EE..II...C..FAAC.HF..C.HDB....DB.GG.
+    MinMoves: 4
+  - Code: FF..EE.HH.IG..AAIGCCDDIB.....B.....B
+    MinMoves: 4
+  - Code: .H.....HCBB.AACF.....F..II.GG...DDEE
+    MinMoves: 4
+  - Code: FHHH..FIIID.AABED..GBE...G......CCC.
+    MinMoves: 4
+  - Code: ....BBH...DGHEAADG.ECCJGIF..J.IF..J.
+    MinMoves: 4
+  - Code: ....FFJ...GGJ..AAK.HCC.K.HIIIEDDDBBE
+    MinMoves: 4
+  - Code: ...CCC.JJL.E.AAL.EIIDDKK...HHGFFFBBG
+    MinMoves: 4
+  - Code: L..KK.L.DDGGLCAAHJIC..HJIBEE.J.B..FF
+    MinMoves: 4
+  - Code: CH..GGCH..JL..AAJL..FFF.EKBB.DEKII.D
+    MinMoves: 4
+  - Code: JJCCEEMDDFFFM.AABKLHHHBKL.GGGKL.II..
+    MinMoves: 4
+  - Code: L.....LJJDC.HAADCKHEEMMKBIIIGGB.FF..
+    MinMoves: 4
+  - Code: LLEEE.FIIIGGFAA..KM.BBBKM.JJDDHH.CCC
+    MinMoves: 4
+  - Code: F..EE.F.....AAGCD...GCD...GB.....B..
+    MinMoves: 5
+  - Code: GGG......B.E.AABCE...BC..DDD..FF....
+    MinMoves: 5
+  - Code: ....DD..CCHH..AAE.BB..E....GFF...G..
+    MinMoves: 5
+  - Code: .....G.EE.FG.AA.FC.DDDFC..BBB...HHH.
+    MinMoves: 5
+  - Code: FF.DDD........AAHC.B..HC.B.EEE.BGGG.
+    MinMoves: 5
+  - Code: GGGCC...BH..AABH...DEE...D.FF..D....
+    MinMoves: 5
+  - Code: .DD.......E.GAA.E.GF..E..FHB....HBCC
+    MinMoves: 5
+  - Code: ...HHH...CEEAA.C.D.GGBBD....II.FF...
+    MinMoves: 5
+  - Code: .C.....C.DG..AADGE.BBB.EIH...EIH.FFF
+    MinMoves: 5
+  - Code: FFEEI.HH..IG..AAIG.CCDDB.....B.....B
+    MinMoves: 5
+  - Code: .....B...J.BAAGJ.ICCGDDI.EEHHI...FFF
+    MinMoves: 5
+  - Code: DBBB.HD.GGEH..AAEC....JCKKK.JC.IIFFF
+    MinMoves: 5
+  - Code: .FH.BB.FH.GKAA..GK.I.CCL.I.JJLEEDDD.
+    MinMoves: 5
+  - Code: CH.GGLCH..JL.AA.JDEKFFFDEK..BB..II..
+    MinMoves: 5
+  - Code: LHHHFFLDDG..IAAG..IKCC...KEEJJ.KBBB.
+    MinMoves: 5
+  - Code: KK....LCDDGGLCAAHJLB..HJIB.EEJI...FF
+    MinMoves: 5
+  - Code: I.DD.CI.K.BCAAK.BL.FHH.L.FGG..JJ.EE.
+    MinMoves: 5
+  - Code: ..LLBB.GGK..AA.KDEICCCDEIJJ....FFHHH
+    MinMoves: 5
+  - Code: L.....L.JJCKHAADCKHEEDMMBIIIGGBFF...
+    MinMoves: 5
+  - Code: JJCCEEMDDFFFM.AABKLHHHBKL.GGGKL...II
+    MinMoves: 5
+  - Code: HCFFFJHCIIIJ.CAABDMMM.BDKLL..DK.GGEE
+    MinMoves: 5
+  - Code: BFE.JJBFEHHLKAA.CLK...C.GI.DC.GI.DMM
+    MinMoves: 5
+  - Code: ..IIJJLLDCCCAAD.EKBMHHEKBMFF..BGGG..
+    MinMoves: 5
+  - Code: ..GGG....BCE.AABCE...B....DDD....FF.
+    MinMoves: 6
+  - Code: ....F.EE..FG..AAFG..DDDC..BBBC..HHH.
+    MinMoves: 6
+  - Code: FF.DDD......AA..HC.B..HC.B.EEE.B.GGG
+    MinMoves: 6
+  - Code: ...EGG..HE.C..HAACFFF..D....BD....BD
+    MinMoves: 6
+  - Code: F.....F..EIIFAAEGD....GD...BCCHH.B..
+    MinMoves: 6
+  - Code: ..G.....GFFFAAG..DH.EEBDH..CBI...C.I
+    MinMoves: 6
+  - Code: ....FFBBB..CAAE..C..E..ID.E.GID.HHG.
+    MinMoves: 6
+  - Code: HH.GB.CC.GB.AA.G.F...IIF...EE....DD.
+    MinMoves: 6
+  - Code: ..GG.F.DDD.FAAE..FIIE.CC..BB..JJ..HH
+    MinMoves: 6
+  - Code: ...HDDEEEHCF.AA.CFJIIBB.J......GGG..
+    MinMoves: 6
+  - Code: H...FFH.CJJJAACGB...CGB.I..GEDI...ED
+    MinMoves: 6
+  - Code: .....B...J.B.AAJ.I.CCDDIEEGHHI..GFFF
+    MinMoves: 6
+  - Code: EE.JJ.BBBGG.HAA.D.HICCD..I..D..IKKFF
+    MinMoves: 6
+  - Code: ..H.BB.FH.GK.FAAGK.I..CC.I.JJLEEDDDL
+    MinMoves: 6
+  - Code: LHHHFFL.DD..AA.G...K.GCCIKEEJJIKBBB.
+    MinMoves: 6
+  - Code: I...DDI.K.BCAAK.BC.F.HHL.FGG.L..JJEE
+    MinMoves: 6
+  - Code: M.GGBBM.LLFFMAAHI.KKKHI.J.CCCEJDDD.E
+    MinMoves: 6
+  - Code: B...JJBFHH.LKFAACLK...C.GIEDC.GIEDMM
+    MinMoves: 6
+  - Code: ...FJJDDDFIKBAA.IKBEE.CCBHHHLMGG..LM
+    MinMoves: 6
+  - Code: ..IIJJLLCCCKAAD..KBMD.HHBMFFE.BGGGE.
+    MinMoves: 6
+  - Code: FGBBBKFGMM.K.AAICELLLICEHHH..E.JJDDD
+    MinMoves: 6
+  - Code: HCFFFJHCIIIJ.CAABDMMM.BDK..LLDK.GGEE
+    MinMoves: 6
+  - Code: ........G..BAAG..B.....BEDDCCCE.FF..
+    MinMoves: 7
+  - Code: ..HEGG..HEBC..AABC.FFF.D.....D.....D
+    MinMoves: 7
+  - Code: D...FFD.EBBBAAE.GC..E.GC.....I.HH..I
+    MinMoves: 7
+  - Code: ...GHH...GCC.AAGBF..IIBF....EE..DD..
+    MinMoves: 7
+  - Code: ..G.....GFFFAAGC.DHEECBDH...BI.....I
+    MinMoves: 7
+  - Code: ..GHHH..GIC..AAICBFF..DB....D.EE....
+    MinMoves: 7
+  - Code: ......F..EIIFAAEGDF..BGD...BCCHH....
+    MinMoves: 7
+  - Code: ..GG.FDDD..FAAE..FIIE.CC.BB.....JJHH
+    MinMoves: 7
+  - Code: ...GE.II.GE.BAAH.DB..H.DFCCH.DF..JJJ
+    MinMoves: 7
+  - Code: .FFHEGIIIHEGAA.HJGBDDDJ.B..CC.......
+    MinMoves: 7
+  - Code: ...HDDEEEHCF..AACFJ.IIBBJ.....GGG...
+    MinMoves: 7
+  - Code: H..FF.H.CJJJAACGBDI.CGBDI..GE.....E.
+    MinMoves: 7
+  - Code: .EEJJ.BBB.GG.AA.D..ICCD.HI..D.HIKKFF
+    MinMoves: 7
+  - Code: ....KKE.CCFJEAA.FJD....JDBI.GGDBIHHH
+    MinMoves: 7
+  - Code: ...BJJF..BI.F.AAIDFHHHCDGKK.C.G.EEC.
+    MinMoves: 7
+  - Code: .LLBB.GG.KD..AAKDEI.CCCEI...JJFFHHH.
+    MinMoves: 7
+  - Code: K.LLJJKFFHHD..AAIDBB.CI.E..CGGE.....
+    MinMoves: 7
+  - Code: FGBBBKFGMM.K.AAICELLLICE..HHHE.JJDDD
+    MinMoves: 7
+  - Code: MGGBB.M.LLFFMAAHIEKKKHIEJ..CCCJDDD..
+    MinMoves: 7
+  - Code: ...FJJDDDFI...AAIKBEECCKBHHHLMB.GGLM
+    MinMoves: 7
+  - Code: .....B.....BAAG..B..G...EDDCCCE...FF
+    MinMoves: 8
+  - Code: ...CF....CFE.AACFE..DBB...DGG.......
+    MinMoves: 8
+  - Code: ..........CE..AACE...F.E..DFGG..DBBB
+    MinMoves: 8
+  - Code: B.EEE.B..GF.BAAGFCIIDDDCHH..........
+    MinMoves: 8
+  - Code: ..GHHH..GIC..AAICB..FFDB....D.....EE
+    MinMoves: 8
+  - Code: ...DDEHH..BE.AA.BE..G.II..GCCC....FF
+    MinMoves: 8
+  - Code: G.E.FFG.EIDDAAEI..H...B.HCC.B.......
+    MinMoves: 8
+  - Code: ..BBF...I.F.AAI.FEC..D.ECH.D.E.H.DGG
+    MinMoves: 8
+  - Code: ...G..II.GE.BAAHEDB..H.DFCCH.DFJJJ..
+    MinMoves: 8
+  - Code: .FF.EG.IIIEG..AAJGDDDHJ.B..HCCB..H..
+    MinMoves: 8
+  - Code: ...D.....DBB..AAFG.EEEFG.CCCHH..JJII
+    MinMoves: 8
+  - Code: I.E.HHI.E.D...AAD.BBCCCJ.GFF.J.G....
+    MinMoves: 8
+  - Code: EE..H...DDH..AA.H....II.B.FFGGB.CCJJ
+    MinMoves: 8
+  - Code: JJ..I.F...IDF.AACDFHHHC.GKKBC.G..BEE
+    MinMoves: 8
+  - Code: ....IIGGDD.J.AAKCJ...KCJF..EEEFBBBHH
+    MinMoves: 8
+  - Code: KKKI..J.GIBBJCGAAH.CEE.HD....FD....F
+    MinMoves: 8
+  - Code: ...KK.E..CCJEAA.FJDB..FJDBI.GGD.IHHH
+    MinMoves: 8
+  - Code: EJJGGGE.CC.BE..AABHHF..DIIF..DLLKK..
+    MinMoves: 8
+  - Code: KLLJJ.KFFHHD..AAID..BBI.E..CGGE..C..
+    MinMoves: 8
+  - Code: ...MFFGLLMKEGBAAKEGB..DI..HHDIJJCCC.
+    MinMoves: 8
+  - Code: ..........FE..AAFE.BBCF...DCGG..DC..
+    MinMoves: 9
+  - Code: DDDG....CG..AACGF.HHB.F...B.F...BEE.
+    MinMoves: 9
+  - Code: G...FFG.EDD.AAE...H.EI..HCCIB.....B.
+    MinMoves: 9
+  - Code: B..EEEB..GF.BAAGFCIIDDDC....HH......
+    MinMoves: 9
+  - Code: BBBD...FFDGG.AAD...CC.....HIII..H.EE
+    MinMoves: 9
+  - Code: ...BB.....F..HAAFE.H.DFEC.ID.EC.IDGG
+    MinMoves: 9
+  - Code: ...DD...HH.E..AABE.II.BE..GCCC..G.FF
+    MinMoves: 9
+  - Code: ...CC..JJB.I.AAB.IH.D..IH.DEEEH.FFGG
+    MinMoves: 9
+  - Code: ..EHH.I.E.DJIAA.DJBBCCC..GFF...G....
+    MinMoves: 9
+  - Code: ....FF...BHHEAABICEDDDIC....IJ...GGJ
+    MinMoves: 9
+  - Code: ......E.JJ..EAA..FDDBBIF..CGIF..CGHH
+    MinMoves: 9
+  - Code: .EE.H...DDH.AA..H....II.BFFGG.B.CCJJ
+    MinMoves: 9
+  - Code: KKKI..JC.IBBJCAA.HEEG..HD.G..FD....F
+    MinMoves: 9
+  - Code: ..II.JGG.DDJAA.KCJ...KC.F..EEEFBBBHH
+    MinMoves: 9
+  - Code: EEEGGG.BBBHL.AA.HLCF.JJLCFDDKKII....
+    MinMoves: 9
+  - Code: EJJGGGE...CCE.AA.BHHF..B..FIIDLLKK.D
+    MinMoves: 9
+  - Code: F..GEEFHHGCCAAB.IK.MB.IKLMB..JLMDDDJ
+    MinMoves: 9
+  - Code: ...MFF.LLMKEGBAAKEGB..D.GHH.DIJJCCCI
+    MinMoves: 9
+  - Code: MLBBB.ML.KEFAA.KEFNIIIHCNGJ.HC.GJDDC
+    MinMoves: 9
+  - Code: ....C.....CF.AAECF..GE.F..GBHH...BDD
+    MinMoves: 10
+  - Code: DDD.F...C.F.AAC.F.HHBG....BG....BGEE
+    MinMoves: 10
+  - Code: CCC..E.....EAAF..GBBF..G..D..G..D.HH
+    MinMoves: 10
+  - Code: GGG..E..I.DEAAIFD.C.BF..C.BF.H..B..H
+    MinMoves: 10
+  - Code: BBBD...FFDGG.AAD.....CC...HIII..HEE.
+    MinMoves: 10
+  - Code: ...BFF...BHHE.AAICEDDDIC....IJ...GGJ
+    MinMoves: 10
+  - Code: H.CC.IH.JJ.IHAAB.I..DB....DEEE..FFGG
+    MinMoves: 10
+  - Code: E.....E.JJ.....AAFDDBBIF..CGIF..CGHH
+    MinMoves: 10
+  - Code: K.CCCJKGGI.JAA.I.J.FEEHH.F.BB..DDD..
+    MinMoves: 10
+  - Code: FFCCKKH...GGH.AA.JEE.DDJ...BII...BLL
+    MinMoves: 10
+  - Code: EEEGGGBBB.HL.AA.HLJJ...LCFDDKKCF..II
+    MinMoves: 10
+  - Code: J...IIJLLCCKAA..BKGGGFBHEE.FDH....DH
+    MinMoves: 10
+  - Code: ..MKIIGGMKCEL.AACEL.FFD..HB.D..HBJJ.
+    MinMoves: 10
+  - Code: F...EEF.HHCCAABGIK.MBGIKLMB..JLMDDDJ
+    MinMoves: 10
+  - Code: K.CLL.KDCEEE.DAAMBFD.HMBF..HIIJJ.GG.
+    MinMoves: 10
+  - Code: KEEELLK..BBBKAAGCI..DGCIFFD.CH.JJMMH
+    MinMoves: 10
+  - Code: .LBBBFML.KEFMAAKECNIIIHCNGJ.HC.GJ.DD
+    MinMoves: 10
+  - Code: .BJJJ.NBLLMMNBAAEKCC.FEKI.GFHDI.G.HD
+    MinMoves: 10
+  - Code: GGG..E..I.DEAAIFDHC.BF.HC.BF....B...
+    MinMoves: 11
+  - Code: BEEE.DB...GD..AAGD...FII...FHH...FCC
+    MinMoves: 11
+  - Code: .II..B.....B.AA..JEFCCCJEF.GDDHHHG..
+    MinMoves: 11
+  - Code: GDDIIIG..BFFAA.B......HH.JEE.C.J...C
+    MinMoves: 11
+  - Code: .J.DDD.JGGEEAAC.I...C.IH..BBBHFFF...
+    MinMoves: 11
+  - Code: .IIIFEDD.GFE.AAG.E...HBB...HCCKK.JJ.
+    MinMoves: 11
+  - Code: KCCC.JKGGI.JAA.I.J.FEEHH.F..BBDDD...
+    MinMoves: 11
+  - Code: H..GGEH..KKE.AAF.EI..FLLIBBBJJ.DDDCC
+    MinMoves: 11
+  - Code: ..FFFK.DD..KLAA..KLBJJEEGBHHH.GIICCC
+    MinMoves: 11
+  - Code: J...IIJLLCCKAA.FBKGGGFBH..EEDH....DH
+    MinMoves: 11
+  - Code: JLLHHHJDDKCFAA.KCF.IEEEB.I...BGG....
+    MinMoves: 11
+  - Code: EGGBLLEIIBJFE.AAJFH.DDC.H.MMC...KKC.
+    MinMoves: 11
+  - Code: .L..BE.LGFBEAAGFCMIHHHCMI..KDDJJ.K..
+    MinMoves: 11
+  - Code: ..IGJJ..IGEE.AA.LD.MM.LD..FCCHKKFBBH
+    MinMoves: 11
+  - Code: ..MKIIGGMKCELHAACELHFFD...B.D...BJJ.
+    MinMoves: 11
+  - Code: ..CLL...CEEEKDAAMBKD..MBFD.HIIFJJHGG
+    MinMoves: 11
+  - Code: CCBBB.MMNHHFAAN.JFDGG.JFDK.EEEDKLLII
+    MinMoves: 11
+  - Code: .B.JJJNBLLMMNBAAEKCCGFEKI.GFHDI...HD
+    MinMoves: 11
+  - Code: EC....ECFHHI.CFAAIBB.G.I...GDD......
+    MinMoves: 12
+  - Code: .EE...CCFFFBG.AA.BG..J.B..HJDD..H.II
+    MinMoves: 12
+  - Code: GDDIIIG...FFAA.B...J.BHH.J.EEC.....C
+    MinMoves: 12
+  - Code: .J.DDD.JGGEEAAC.....C.IHBBB.IH.FFF..
+    MinMoves: 12
+  - Code: .K.....K...HB.AAEHBFJJE.GF.CE.GDDCII
+    MinMoves: 12
+  - Code: .III.E.DDGFEAA.GFE...HBB...HCCKK.JJ.
+    MinMoves: 12
+  - Code: ..BBD.EGGGDHE.AADH.KK....LLICC.FFIJJ
+    MinMoves: 12
+  - Code: .FFF.K.DD..KLAA..KLBJJEEGB.HHHGIICCC
+    MinMoves: 12
+  - Code: ..LHHE..L.CE.AAKCE.DDKFF.JJ.GG..IIBB
+    MinMoves: 12
+  - Code: H.GG.EH..KKEAA.F.E...FLLIBBBJJIDDDCC
+    MinMoves: 12
+  - Code: IIIKKCFEEEBCFAALBCJ..LHHJ..DDDGG....
+    MinMoves: 12
+  - Code: ..IJJDEEI.LD..AALH..FMMH..FGCC.KKGBB
+    MinMoves: 12
+  - Code: .J.LL..JBMFFAABMCDGEEECDG..IHHKK.I..
+    MinMoves: 12
+  - Code: EGGBLLEIIBJ.E.AAJFH.DDCFH.MMC.KK..C.
+    MinMoves: 12
+  - Code: .ILLMM.IDDD.AA.GCBEEEGCBJ.KKC.JFF.HH
+    MinMoves: 12
+  - Code: CCBBBFMMNHHFAAN.JFDGG.J.DKEEE.DKLLII
+    MinMoves: 12
+  - Code: HH.GIIFFFGJJ...AACNBBB.CN.EEMKDDLLMK
+    MinMoves: 12
+  - Code: .CF...ECFHHIECAA.IBB.G.I...GDD......
+    MinMoves: 13
+  - Code: G.....G...FCG.AAFCDDDIF..J.IBB.JHHEE
+    MinMoves: 13
+  - Code: .EE..BCCFFFBG.HAABG.HJ.....JDD....II
+    MinMoves: 13
+  - Code: ..EEE....GHD.AAGHDBBFFFDCJJIIIC.....
+    MinMoves: 13
+  - Code: EEEGGI...H.ICAAH.ICJ.FBB.J.F...KKKDD
+    MinMoves: 13
+  - Code: .K.....K..E.BFAAE.BFJJEHG..C.HGDDCII
+    MinMoves: 13
+  - Code: CK.DD.CKGEI.AAGEI...GB..J..BHHJFFB..
+    MinMoves: 13
+  - Code: G....KG...DKCAA.DHCBEEDH.BFLIIJJFL..
+    MinMoves: 13
+  - Code: HH.GGE...BBE.AAK...LLKFF..JCDDIIJC..
+    MinMoves: 13
+  - Code: JIBBLLJIGGG.AAC..DH.C.KDHEE.KD...FFF
+    MinMoves: 13
+  - Code: .CBBGK.CH.GKAAH...JJJI..FDDILLF..EEE
+    MinMoves: 13
+  - Code: ..L.HH..L..E..AACEDDFFCE.JJKGGII.KBB
+    MinMoves: 13
+  - Code: ...FIGD..FIGDAAFEKB.LLEKB.J.CC..JHHH
+    MinMoves: 13
+  - Code: E.BBD.EGGGDHAA.IDH...IKK.LLCC..FF.JJ
+    MinMoves: 13
+  - Code: .ILLMM.I.DDDAA.GC.EEEGC.J.KKCBJFFHHB
+    MinMoves: 13
+  - Code: MMGG.F...HHF..AAEFLLL.E.CIIKBBCDDKJJ
+    MinMoves: 13
+  - Code: .HHGIIFFFGJJ...AACN.BBBCN.EEMKDDLLMK
+    MinMoves: 13
+  - Code: IIIEE...G...AAGC..FBBC.DF..C.D..HHHD
+    MinMoves: 14
+  - Code: .EEE.....GHDAA.GHDBBFFFDCJJIIIC.....
+    MinMoves: 14
+  - Code: EEEGGI...H.I.AAH.I.J.FBBCJ.F..CKKKDD
+    MinMoves: 14
+  - Code: CKDDI.CK.EI.AAGE....GB..J.GBHHJFFB..
+    MinMoves: 14
+  - Code: ..G.CC..G..DAAB.HDJJB.HIEEFFFI...KK.
+    MinMoves: 14
+  - Code: HH.GGE.BBK.E.AAK...LLFF...JCDDIIJC..
+    MinMoves: 14
+  - Code: ....IGD...IGDAAFEKBLLFEKB.JFCC..JHHH
+    MinMoves: 14
+  - Code: FBBIG.F.HIGKAAH..KJJJ....CDDLL.CEEE.
+    MinMoves: 14
+  - Code: M.IILLM..J.HDAAJGHD.KKG.D.EEB.FFCCB.
+    MinMoves: 14
+  - Code: LMMK.CLDDKJCAAGHJ.FFGHJ..BE....BEII.
+    MinMoves: 14
+  - Code: MM.GGF..HH.FAA..EFLLLKE.CIIKBBC.DDJJ
+    MinMoves: 14
+  - Code: K.MMB.KFFFBHAA.JLHGG.JL..ICCEE.I.DD.
+    MinMoves: 14
+  - Code: KKKL.....LDDFAA.GBFEEEGBFCCJMIHH.JMI
+    MinMoves: 14
+  - Code: ..HGGGL.HDMMLAADBENJ.FBENJ.FKI.CCCKI
+    MinMoves: 14
+  - Code: D.GGJJDBBBNNAACIHKF.CIHKFM.I.E.M.LLE
+    MinMoves: 14
+  - Code: ...LFFKK.LCH.AAECHJIIE.DJ.MNNDGGMBBD
+    MinMoves: 14
+  - Code: NN..ILKK..ILMEAA.CMEBFHCJDBFHCJDBFGG
+    MinMoves: 14
+  - Code: ...D..E..DB.EAAJBGE.FJBG.IFCCG.I.HH.
+    MinMoves: 15
+  - Code: ..HKKDIIH..DECAAGDEC..G.ECJJBBFFF...
+    MinMoves: 15
+  - Code: JJDDF.H..BF.HAAB.EHKKKIE.CCCI...GGG.
+    MinMoves: 15
+  - Code: ..G.CC..G.HDAAB.HD..B.JJEEFFFI..KK.I
+    MinMoves: 15
+  - Code: DFF.K.D.JJKIAAGH.I..GHBBCCCH....EE..
+    MinMoves: 15
+  - Code: ....DDJJHH.F..AA.FCCBBBFKEEIIIKLLGGG
+    MinMoves: 15
+  - Code: CDIIL.CD.ML.KAAM..KGGEEBJHHH.BJ.FFF.
+    MinMoves: 15
+  - Code: L.IIFHL.EEFHAADC.HGGDC..M.JJKKM..BB.
+    MinMoves: 15
+  - Code: .HH.KKEELLLBJ.AAIBJCC.IB..GDMMFFGD..
+    MinMoves: 15
+  - Code: KKKL.....LDD..AAGBFEEEGBFCCJMIFHHJMI
+    MinMoves: 15
+  - Code: DCC.IID.JJMMAAB.H.L.BFH.LGGF..KKEE..
+    MinMoves: 15
+  - Code: MIIJLLM..J..D.AAGHD.KKGHD.EEB.FFCCB.
+    MinMoves: 15
+  - Code: .NN.ILKKB.ILMEBAACMEBFHCJD.FHCJD.FGG
+    MinMoves: 15
+  - Code: NG.KEENG.K.J..AAHJFFDDHLB..IILBMMCCC
+    MinMoves: 15
+  - Code: ..HGGG..HDMMLAADBELJ.FBENJ.FKINCCCKI
+    MinMoves: 15
+  - Code: ...LFFKK.L.HAA.ECHJIIECDJ.MNNDGGMBBD
+    MinMoves: 15
+  - Code: ...D..E..DB.EAAJBGEI.JBG.IFCCGHHF...
+    MinMoves: 16
+  - Code: JEEDDDJ..B..AAHB....H.G..CCCGI.FFF.I
+    MinMoves: 16
+  - Code: ..HKK.IIH.GDECAAGDEC...DECJJBB.FFF..
+    MinMoves: 16
+  - Code: FHHICCF..IDDFAA.KEBBG.KE..GJJJ......
+    MinMoves: 16
+  - Code: .HH..F..LLIFKGAAIFKG.JEEKCCJBB....DD
+    MinMoves: 16
+  - Code: JJHHEFLL.KEFCAAKE.C..BBBC..DGG...DII
+    MinMoves: 16
+  - Code: ....DDJJHH.FAA...FCCBBBFKEEIIIKLLGGG
+    MinMoves: 16
+  - Code: KHHHCFK...CF.IAAEB.IGGEB...LDDJJ.L..
+    MinMoves: 16
+  - Code: CDIIL.CD.ML.KAAM.BKGGEEBJHHH..J..FFF
+    MinMoves: 16
+  - Code: M.HHFFMBBLL.AAEJ.D.GEJID.GKKID...CCC
+    MinMoves: 16
+  - Code: FFFGG.KK.DIIAA.DJMECCCJME..BBLEHH..L
+    MinMoves: 16
+  - Code: LMMCCCLII.KH.AA.KH.FFBBJ.DGGGJ.D.EEE
+    MinMoves: 16
+  - Code: DCC.IID.JJMMAAB...L.BF..LGGFH.KKEEH.
+    MinMoves: 16
+  - Code: .BIHH..BIJKKGAAJ..GC.JFFLCMMEDL...ED
+    MinMoves: 16
+  - Code: ..FHMMC.FHJ.CIAAJGCI.KDG.ILKDEBBLNNE
+    MinMoves: 16
+  - Code: N..KEENG.K.J.GAAHJFFDDHLB.II.LBMMCCC
+    MinMoves: 16
+  - Code: JEEDDDJ.....AAH.....H...CCCBGIFFFBGI
+    MinMoves: 17
+  - Code: D..FF.D.JJK.AAGHK...GHBBCCCH.I..EE.I
+    MinMoves: 17
+  - Code: FHHCCEF..DDEFAAIK.BBGIK...GJJJ......
+    MinMoves: 17
+  - Code: KHHHCFK...CFAA..EB.IGGEB.I.LDD.JJL..
+    MinMoves: 17
+  - Code: ..III.GGL..HC.LAAHCFFFJH.KBBJ..KEEDD
+    MinMoves: 17
+  - Code: FFK..E.BKLLE.BAAIJCC.HIJ...HGGDDD...
+    MinMoves: 17
+  - Code: KCG...KCGFFJKAAIBJ..EIBL..EHDL...HD.
+    MinMoves: 17
+  - Code: .HH.IFLL..IFKG.AAFKG.JEEKCCJBB...DD.
+    MinMoves: 17
+  - Code: KB.HGGKB.H...B.AAF.DDJJF.LLLIECC..IE
+    MinMoves: 17
+  - Code: JJHHEFLL.KEFAA.KE.C.BBB.C..DGGC..DII
+    MinMoves: 17
+  - Code: FFFDGGKK.DII..AAJMECCCJME.BB.LE..HHL
+    MinMoves: 17
+  - Code: MHHFF.MBBLL.AAEJ.D..EJID.GKKID.G.CCC
+    MinMoves: 17
+  - Code: ....HHDD.LB.AA.LBGIIJJBGKCC.MMKEEFF.
+    MinMoves: 17
+  - Code: .BIHH.GBIJKKGAAJ..LC.JFFLCMMED....ED
+    MinMoves: 17
+  - Code: LMMCCCLII..HAA..KHFFBBKJ.DGGGJ.D.EEE
+    MinMoves: 17
+  - Code: ..FHMMCIFH..CIAAJGCILKJG..LKDEBBNNDE
+    MinMoves: 17
+  - Code: ......B..HCJBAAHCJDDEHC.FGEII.FG....
+    MinMoves: 18
+  - Code: EE..IJGF..IJGF.AAJG.HHH...BDCCKKBD..
+    MinMoves: 18
+  - Code: JJDDF....BF.AA.BIEHKKKIEH..CCCH.GGG.
+    MinMoves: 18
+  - Code: ..DDHH...BFF.AABEJGGG.EJ..I.EJCCIKK.
+    MinMoves: 18
+  - Code: GFFF.KG.JDDKAAJC...B.CHH.BEEI.....I.
+    MinMoves: 18
+  - Code: .C..BJ.CFFBJAAGI.LK.GIDLK.EHD.K.EH..
+    MinMoves: 18
+  - Code: ...H..I..HE.IAADE.BBLDEJGCLKKJGC.FF.
+    MinMoves: 18
+  - Code: .B.HGG.B.H..KB.AAFKDDJJF.LLLIECC..IE
+    MinMoves: 18
+  - Code: FFK..E.BKLLE.BAAIJ.CCHIJ...HGG.DDD..
+    MinMoves: 18
+  - Code: ..IIIHGGL..H..LAAHFFF.J.CKBBJ.CKEEDD
+    MinMoves: 18
+  - Code: I..EHHICCEG..DAAGL.D..GLFFJ..K..JBBK
+    MinMoves: 18
+  - Code: LIIGGGL..BFFAADB.CJ.D..CJKK..C.HHEEE
+    MinMoves: 18
+  - Code: LLEKKDI.E.FDIAA.F.HJ.BBBHJ.CGG.MMC..
+    MinMoves: 18
+  - Code: DDMMMBJ..CCBJIAAG.JIHHG..IK.EEFFKLL.
+    MinMoves: 18
+  - Code: ...LHHDD.LBG..AABGIIJJB.KCCMM.KEE.FF
+    MinMoves: 18
+  - Code: HHKK..EELLLBAA..IBJ.CCIBJ.GDMMFFGD..
+    MinMoves: 18
+  - Code: JJGCD...GCD.AAGCDI.H...IBH.EEIB.FF..
+    MinMoves: 19
+  - Code: ..EEIJG...IJGAA..JGFHHH..FBDCCKKBD..
+    MinMoves: 19
+  - Code: G.FFFKG.DD.KAAJC...BJCHH.BEEI.....I.
+    MinMoves: 19
+  - Code: .DD.HH...BFF.AABE..GGGEJ..I.EJCCIKKJ
+    MinMoves: 19
+  - Code: .F.CCE.FK..EAAKD.E..KDIIGBB.H.GJJ.H.
+    MinMoves: 19
+  - Code: CCG...H.GFF.H.AAE.KK..EDBBIIIDJJ...D
+    MinMoves: 19
+  - Code: ..BBB....GIIFAAGDLFEKKDL.EJCCLHHJ...
+    MinMoves: 19
+  - Code: LEKKB.LEGIB.AAGIDF.JJHDF..CHDF..C...
+    MinMoves: 19
+  - Code: LIIGGGL.FF..AAD..C..DB.CJKKB.CJHHEEE
+    MinMoves: 19
+  - Code: KDMMBBKDEFF.AAE..H....CHJGGGCHJIIILL
+    MinMoves: 19
+  - Code: LLEKKDI.E.FDIAA.F.HJBBB.HJ.CGGMM.C..
+    MinMoves: 19
+  - Code: M..BKKMH.BJE.HAAJEG.IIJEGCFLLLGCFDDD
+    MinMoves: 19
+  - Code: GBKKK.GB.MM.AALH..CFLHNNCFEEIDJJ..ID
+    MinMoves: 19
+  - Code: .NNBBB.KKDD.AALE..FILEJJFICHHGMMC..G
+    MinMoves: 19
+  - Code: KK.NNNJ..LIIJAALDFMCBBDFMCH..GEEH..G
+    MinMoves: 19
+  - Code: JJG.....GC..AAGC.I...CDIBHEEDIBHFFD.
+    MinMoves: 20
+  - Code: CCG...H.G.FFHAA.EDKK..EDBBIIID....JJ
+    MinMoves: 20
+  - Code: .FCC.E.FK..EAAKD.EG.KDIIG.BBH...JJH.
+    MinMoves: 20
+  - Code: FBBB..F..GIIAA.GDL.EKKDL.EJCCLHHJ...
+    MinMoves: 20
+  - Code: GKKCI.G.FCI.AAF....BBBEELLDDDHJJJ..H
+    MinMoves: 20
+  - Code: EEJ..KCHJ..KCHFAAK..FDD.BBFIGGLLLI..
+    MinMoves: 20
+  - Code: EJJDF.E.KDF.AAKD..IIICC.BBGG...HHLL.
+    MinMoves: 20
+  - Code: E..GGGE.JFHHAAJF...B.FDD.BCCLI.KK.LI
+    MinMoves: 20
+  - Code: LEKKB.LEGIBFAAGIDFJJCHDF..CHD.......
+    MinMoves: 20
+  - Code: FHH.C.F.L.CDAAL..DKBJJE.KB.GE..B.GII
+    MinMoves: 20
+  - Code: ...BKKMH.BJEMHAAJEGCIIJEGCFLLLG.FDDD
+    MinMoves: 20
+  - Code: KDMMBBKDE.FFAAE..H....CHJGGGCHJIIILL
+    MinMoves: 20
+  - Code: KKNNN.J..LIIJAAL.FMCBBDFMCH.DGEEH..G
+    MinMoves: 20
+  - Code: ELLDD.EJJMM.AAIB.KFFIBCK.HNNCK.HGGG.
+    MinMoves: 20
+  - Code: .BLKKKGBLMM.GAAH..CF.HNNCFEEIDJJ..ID
+    MinMoves: 20
+  - Code: EEGHH.FFGC.JAAGC.J...D..IBBD..I.....
+    MinMoves: 21
+  - Code: JJ.DHI...DHI.AAFHI...FEEBK.GG.BK.CCC
+    MinMoves: 21
+  - Code: BBBI....EIGGAAE.C.FJ..C.FJHHCD..KKKD
+    MinMoves: 21
+  - Code: EEJ...C.J..KCHFAAK.HFDDKBBFIGGLLLI..
+    MinMoves: 21
+  - Code: EGGG..E..FHHAAJF...BJFDD.BCCLIKK..LI
+    MinMoves: 21
+  - Code: F.HHC.F.L.CDAAL.EDKBJJE.KB.G...B.GII
+    MinMoves: 21
+  - Code: LCDDJJLCFFG...AAG.KKIIG...HBEE..HB..
+    MinMoves: 21
+  - Code: EJJDF.E.KDF.AAKD..IIICC.BBGG..HHLL..
+    MinMoves: 21
+  - Code: GGFFFHJKKKCHJ.AACMII.ECM..DELL..DBBB
+    MinMoves: 21
+  - Code: KI.BBBKI.GLL.AAGMHD.JJMHD.FEECD.F..C
+    MinMoves: 21
+  - Code: H.DDGMHEE.GMBLAAGMBL.K..B.IKFFJJI.CC
+    MinMoves: 21
+  - Code: .J.EEKHJ..GKHMAAGCHMBBGC..DLL.IIDFF.
+    MinMoves: 21
+  - Code: ...L....BLCKAABGCKEEIG..HMIDDFHMJJ.F
+    MinMoves: 21
+  - Code: .CCL..BF.LMMBFAANDEE..NDKGG.NHKJJIIH
+    MinMoves: 21
+  - Code: ELLDD.EJJMM.AAIB..FFIBCK.HNNCK.HGGGK
+    MinMoves: 21
+  - Code: DHHHBID.F.BIAAFJB....JCCGGGJ....EEE.
+    MinMoves: 22
+  - Code: .HH.E..IDDE.JIAAE.J.GBB.KKGC..FFFC..
+    MinMoves: 22
+  - Code: JJ.DHI.K.DHI.KAAHIEE.F..B..FGGB..CCC
+    MinMoves: 22
+  - Code: ..KHHH..K...FAAED.FIIED.CG..D.CGBBJJ
+    MinMoves: 22
+  - Code: ...GGE..KJJEAAKF.E..KFHHI.DDB.ICCCB.
+    MinMoves: 22
+  - Code: HJJKF.H.DKF.AADIFC..GI.C..GI.B..GEEB
+    MinMoves: 22
+  - Code: JJ....BB....G.AAC.GEEEC.KKFDC.HHFDII
+    MinMoves: 22
+  - Code: ..EBBB..EIGG.AAIC.FJ..CDFJHHCD..KKK.
+    MinMoves: 22
+  - Code: LCDDJJLCFFG.AA..G.KKIIG...HBEE..HB..
+    MinMoves: 22
+  - Code: .LHHHG.LE..GAAE..BIIFJ.BK.FJCCKDDJ..
+    MinMoves: 22
+  - Code: KI.BBBKI.GLLDAAGMHD.JJMHD.FEEC..F..C
+    MinMoves: 22
+  - Code: KKBBI..EEEIGAAF..G..FCCGJLLM..JDDMHH
+    MinMoves: 22
+  - Code: G.HHL.G.MKL.AAMKCF.BBBCF...DEEJJ.DII
+    MinMoves: 22
+  - Code: .HHLMMGBBLJDGIAAJDGIEEJD.IC.FF..CKKK
+    MinMoves: 22
+  - Code: .CCL...F.LMMBFAANDBEE.NDKGG.NHKJJIIH
+    MinMoves: 22
+  - Code: ..JJC...BBC.GAA.C.G.FEEEKKFD...HHDII
+    MinMoves: 23
+  - Code: FG.HHHFG.ED.CAAED.C.IID...K...BBKJJ.
+    MinMoves: 23
+  - Code: .HH.E..DD.E.JIAAE.JI.CBBKKGC....GFFF
+    MinMoves: 23
+  - Code: IJ.CFFIJ.CH.IAA.H.KKD.H...D.EEGGBB..
+    MinMoves: 23
+  - Code: .CCC.LGKK..LGAAB....HBJJDDHBF.EEIIF.
+    MinMoves: 23
+  - Code: EEEHH....JJLAAI..LF.IGBBFKKGC..DD.C.
+    MinMoves: 23
+  - Code: KKBBI.EEE.IGAAF..G..FCCGJLLM..JDDMHH
+    MinMoves: 23
+  - Code: JHHDFEJCCDFEAAMBF.GGMB....L..K..LIIK
+    MinMoves: 23
+  - Code: FJ.LG.FJ.LGBFAADGBKKHD.E..HCCE.II.MM
+    MinMoves: 23
+  - Code: .EKKBB.EFFFCAAL..CM.LIIDM.HHGD.JJJG.
+    MinMoves: 23
+  - Code: DJ..BBDJC..FKJCAAFKGGI.F..MIHHEEMLL.
+    MinMoves: 23
+  - Code: G.DDHIG..EHIAAFEMJ..FCMJ.BLCM..BLCKK
+    MinMoves: 23
+  - Code: NDBB.FND.KCF.AAKC.IEEMJLI.GMJL..GHHH
+    MinMoves: 23
+  - Code: .LLNBKM..NBKMJAAB.FJECC.F.EDDH.GGIIH
+    MinMoves: 23
+  - Code: D.FJGGD.FJCCAAF.LM.I..LMNIHHHBNEEKKB
+    MinMoves: 23
+  - Code: I..CFFIJ.CH.IJAAH.KKD.H...D.EE.GG.BB
+    MinMoves: 24
+  - Code: BBB.K...GIKJAAGIKJEFHH.CEFDD.C......
+    MinMoves: 24
+  - Code: HHLI....LIC.KAADCBKE.DCBKE.JJBFFGG..
+    MinMoves: 24
+  - Code: CCC..L.KKB.LGAAB..G.HBJJDDH.F.EEIIF.
+    MinMoves: 24
+  - Code: FDD.IIF.....AAJ..KEEJLLKCCCBHK.GGBH.
+    MinMoves: 24
+  - Code: KEEII.KCCL.JAAHL.J..H.BB.DDDF.GGG.F.
+    MinMoves: 24
+  - Code: EEEHH...IJJLAAIG.LF..GBBF.KKC...DDC.
+    MinMoves: 24
+  - Code: HHH....IIGJ.AACGJKF.CDDKF.BBELMM..EL
+    MinMoves: 24
+  - Code: KKFFGCIII.GCAAD.GC..DBB.HEEJ..HLLJMM
+    MinMoves: 24
+  - Code: JHH...JCCDF.AAMDFEGGMBFE..LB.K..LIIK
+    MinMoves: 24
+  - Code: JIIEE.J.DCGGAADC...HBBK..HFFKL.MM.KL
+    MinMoves: 24
+  - Code: .EKKBB.EFFFCAAL..CM.LIIDM.HHGDJJJ.G.
+    MinMoves: 24
+  - Code: BLKKKDBLMMGDIFAAGCIF..GCIFJ.EEHHJ.NN
+    MinMoves: 24
+  - Code: DDLLLK..FFJK.AA.J.NIEEHHNIGCCBMMG..B
+    MinMoves: 24
+  - Code: ..EHFF..EH..AA.BG.D..BG.DCCCI.....I.
+    MinMoves: 25
+  - Code: BBB.K.....KJAAGIKJEFGIHHEFDD.C.....C
+    MinMoves: 25
+  - Code: GHHH..G.B.CCAABJ..DDFJEE.LFJ.I.LKK.I
+    MinMoves: 25
+  - Code: F.DDIIF.J..KAAJ..K.EELLKCCCBH..GGBH.
+    MinMoves: 25
+  - Code: .GGEEEBBBIK..AAIKJFLLIKJF.CHHJDDC...
+    MinMoves: 25
+  - Code: HHLI....LI..KAAD..KE.DCBKEJJCBFFGGCB
+    MinMoves: 25
+  - Code: KEEII.K.CC.JAAHL.J..HLBB.DDDF..GGGF.
+    MinMoves: 25
+  - Code: .EED..GMHDFFGMHAAB..J..BKKJ..LIIICCL
+    MinMoves: 25
+  - Code: KKFFG.III.G.AAD.GC..DBBCHEEJ.CHLLJMM
+    MinMoves: 25
+  - Code: JIIEE.J.DCGGAADC.L.HBBKL.HFFK..MM.K.
+    MinMoves: 25
+  - Code: HHHG.K.IIGJKAAC.JLF.CDDLF.BBE.MM..E.
+    MinMoves: 25
+  - Code: EE....F.LLC.FAA.CMIHGGCMIHKJBBDDKJ..
+    MinMoves: 25
+  - Code: MDD.IEM.KHIEAAKHIL.BGGGL.BFFJJCCC...
+    MinMoves: 25
+  - Code: DDLLLK.FF.JK.AA.J.NIEEHHNIGCCBMMG..B
+    MinMoves: 25
+  - Code: BLKKKDBLMMGDIFAAGCIF..GCIFJ.EEHHJNN.
+    MinMoves: 25
+  - Code: ...HFF..EHG.AAEBG.D..BI.DCCCI.......
+    MinMoves: 26
+  - Code: DCCCJ.D..EJGAA.EIG..F.IG..FBHH...B..
+    MinMoves: 26
+  - Code: FFFHHK.....KAAG..CJ.GBBCJEEDI....DI.
+    MinMoves: 26
+  - Code: G.HHH.G.BJCCAABJ..DDFJEE.LF..I.LKK.I
+    MinMoves: 26
+  - Code: GGEEE.BBBIK.AA.IKJFLLIKJF.CHHJDDC...
+    MinMoves: 26
+  - Code: FF....DDDEEMAAGJ.MKKGJHIBCC.HIBLL...
+    MinMoves: 26
+  - Code: MDDHIEM.KHIEAAK.IL.BGGGL.BFFJJCCC...
+    MinMoves: 26
+  - Code: ILLGGGI..FBBAAKF.C..KEECDDD.HCJJMMH.
+    MinMoves: 26
+  - Code: BBBJJIKKD.HIAAD.HC..DG.CEFFG.CELL.MM
+    MinMoves: 26
+  - Code: GEED..G.HDFF.MHAAB.MJ..BKKJ..LIIICCL
+    MinMoves: 26
+  - Code: .HEEC.FHLLC.FAAJC.I.KJGGI.KBBM...DDM
+    MinMoves: 26
+  - Code: HHHKFEII.KFECAAMJGC.BMJG..BLLG.DD...
+    MinMoves: 26
+  - Code: LL.N.KMJ.NBKMJAABHF.CCBHF.E.DDGGEII.
+    MinMoves: 26
+  - Code: .DBBCFND.KCFNAAKJLIEEMJLI.GM....GHHH
+    MinMoves: 26
+  - Code: ...BJJ...BHHAAIBE.C.I.E.CDDDFG....FG
+    MinMoves: 27
+  - Code: HBBD..H.EDCFAAEDCF..EIIF....JJ.GG...
+    MinMoves: 27
+  - Code: DCCCJGD...JGAAFEIG..FEI....BHH...B..
+    MinMoves: 27
+  - Code: GGGH....JHDDAAJ..F.LIIEFKLBBE.KCC.E.
+    MinMoves: 27
+  - Code: KMMJJ.K.LHFFAALH.G.EDDCG.EBBC.III.C.
+    MinMoves: 27
+  - Code: EBBGGGE.LHH.AAL......MKKCCCMDIFFJJDI
+    MinMoves: 27
+  - Code: FF....DDDEEMAAG..MKKGJHIBCCJHIBLL...
+    MinMoves: 27
+  - Code: MFFIKKMJJI..AAG.....GDD..LLLCHEEBBCH
+    MinMoves: 27
+  - Code: GGLL....FJEEAAFJ..HDFBBKHDCCCKIIMM.K
+    MinMoves: 27
+  - Code: .MMM.L.IIBHLAAFBH.G.FBDDG.CCKEJJ..KE
+    MinMoves: 27
+  - Code: HHHKFE.IIKFECAAMJGC..MJG..BLLG..BDD.
+    MinMoves: 27
+  - Code: JJJG..CC.GIKAAF.IKL.FEHHLNNEDDBBMM..
+    MinMoves: 27
+  - Code: EJJKGGE.DKHHAADK..LI.CC.LINNBFMMM.BF
+    MinMoves: 27
+  - Code: HLL.DNHFK.DN.FKAAEJJMB.E..MBGG.CCII.
+    MinMoves: 27
+  - Code: HBB..FH.E.CFAAEDCF..EDII...DJJ....GG
+    MinMoves: 28
+  - Code: ..JJ....IBHHAAIBE.C..BE.CDDDFG....FG
+    MinMoves: 28
+  - Code: E..FFFEHHBIIAACB.D..C..D.GGGJK....JK
+    MinMoves: 28
+  - Code: GGG.....JHDDAAJHE.KLIIE.KLBBEF.CC..F
+    MinMoves: 28
+  - Code: KKC.H...CBHIAAEB.I..EFFIJDDL..J..LGG
+    MinMoves: 28
+  - Code: ..BBI.DDDKI..AAKICH.EJ.CH.EJFF.LLGG.
+    MinMoves: 28
+  - Code: JJI.....ICC.GAAD.EG.LD.EH.LBBKHMMFFK
+    MinMoves: 28
+  - Code: EBBGGGE.HH..AALM....LMKKCCC.DIFFJJDI
+    MinMoves: 28
+  - Code: .GGLL...FJEEAAFJ..HDFBBKHDCCCKII.MMK
+    MinMoves: 28
+  - Code: MFFIKKMJJI..AAG..H..GDDH.LLLC.EEBBC.
+    MinMoves: 28
+  - Code: CII.LLCHHD..AAMD.K..MGGK.BBBJ.EEFFJ.
+    MinMoves: 28
+  - Code: CIIDFFCM.DKHCMAAKHEEJ.KH..J.GGBB.LL.
+    MinMoves: 28
+  - Code: MMGBB...GCCCAAGE.JL..EDJL.IIDFKKHHHF
+    MinMoves: 28
+  - Code: EJJGG.E.DKHHAADK...I.KCCLINNBFLMMMBF
+    MinMoves: 28
+  - Code: E..FFFE.HHIIAAC..D..C..DGGGBJK...BJK
+    MinMoves: 29
+  - Code: KKC.H...CBH.AAEB....EFFIJDDL.IJGGL.I
+    MinMoves: 29
+  - Code: L.FFE.LGGGEIAACHDIBBCHDI...HKK...JJ.
+    MinMoves: 29
+  - Code: I.HHHGI..JDG.AAJDF..EEDF..KBLL..KBCC
+    MinMoves: 29
+  - Code: H.BBI.HDDDI.AA.KIC..EK.C..EJFFLL.JGG
+    MinMoves: 29
+  - Code: M.LLB.M..FBEAA.FBEJGDIIIJGDHHK.CC..K
+    MinMoves: 29
+  - Code: CII.FFCM..KHCMAAKH.EEDKH..JDGGBBJLL.
+    MinMoves: 29
+  - Code: K.GGJFKDDDJFAA.CIH.EECIH..MCBB..M.LL
+    MinMoves: 29
+  - Code: .MM.BB..GCCCAAG..JL.GEDJLIIEDFKKHHHF
+    MinMoves: 29
+  - Code: CIILL.CHHD.KAAMD.K..MGG..BBBJ.EEFFJ.
+    MinMoves: 29
+  - Code: .LHH.B.LMC.BAAMC.IG.JJDIG.KFDIG.KFEE
+    MinMoves: 29
+  - Code: JJI...G.ICCEGAAD.EH.LD.KH.LBBK.MM.FF
+    MinMoves: 29
+  - Code: .CCM..F..MJJFIAABEFIKKBEDDN..LHHNGGL
+    MinMoves: 29
+  - Code: .FFFEN.KKDENAABD.LJ.BGGLJMM.IICC.HH.
+    MinMoves: 29
+  - Code: LFF.E.LGGGEIAACHDIBBCHDI...HKK..JJ..
+    MinMoves: 30
+  - Code: IHHH.GI..JDGAA.JDF.EEBDF..KBLL..KCC.
+    MinMoves: 30
+  - Code: ..GGJFKDDDJFKAA.IHEEMCIH..MCBB...CLL
+    MinMoves: 30
+  - Code: .LHHDB.LM.DBAAMC.IGJJC.IG.KF.IG.KFEE
+    MinMoves: 30
+  - Code: MLLF..MG.FB..GAABE.IIIBEJ.DHHKJ.DCCK
+    MinMoves: 30
+  - Code: CC.M..F..MJJFIAABEFIKKBEDDN..LHHNGGL
+    MinMoves: 30
+  - Code: .FFFEN.KKDENAABD.LJ.BGGLJ.MMIICC.HH.
+    MinMoves: 30

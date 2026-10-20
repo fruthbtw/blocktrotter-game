@@ -4,7 +4,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Blocktrotter.Core"
+        "Blocktrotter.Core",
+        "Blocktrotter.Game"
     ],
     "includePlatforms": [
         "Editor"

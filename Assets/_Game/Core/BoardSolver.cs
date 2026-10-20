@@ -33,50 +33,33 @@ namespace Blocktrotter.Core
     /// </example>
     public static class BoardSolver
     {
-        private const int BitsPerBlock = 3;   // positions 0..7 fit any board up to 8x8
-        private const int MaxBlocks = 64 / BitsPerBlock;
-
         /// <summary>Solves the board; <paramref name="maxStates"/> caps the search (0 = no cap).</summary>
         public static SolveResult Solve(Board board, int maxStates = 0)
         {
             if (board.IsSolved)
                 return new SolveResult(true, new List<Move>());
 
-            int n = board.Blocks.Count;
-            if (n > MaxBlocks)
-                throw new System.ArgumentException($"Solver supports at most {MaxBlocks} blocks.");
-
-            var start = new int[n];
-            for (int i = 0; i < n; i++) start[i] = board.Blocks[i].Position;
-
-            ulong startKey = Pack(start);
+            var space = new StateSpace(board);
+            ulong startKey = space.StartKey;
             var parents = new Dictionary<ulong, (ulong Parent, Move Move)> { [startKey] = (startKey, default) };
             var queue = new Queue<ulong>();
+            var neighbors = new List<(ulong Key, Move Move)>();
             queue.Enqueue(startKey);
-            var positions = new int[n];
 
             while (queue.Count > 0)
             {
                 ulong key = queue.Dequeue();
-                Unpack(key, positions);
-                Board state = board.WithPositions(positions);
-
-                foreach (Move move in state.GetLegalMoves())
+                space.GetNeighbors(key, neighbors);
+                foreach ((ulong next, Move move) in neighbors)
                 {
-                    positions[move.BlockIndex] += move.Delta;
-                    ulong nextKey = Pack(positions);
-                    bool solved = move.BlockIndex == board.TargetIndex
-                        && positions[move.BlockIndex] + board.Blocks[board.TargetIndex].Length == board.Size;
-                    positions[move.BlockIndex] -= move.Delta;
-
-                    if (parents.ContainsKey(nextKey))
+                    if (parents.ContainsKey(next))
                         continue;
-                    parents[nextKey] = (key, move);
-                    if (solved)
-                        return new SolveResult(true, Reconstruct(parents, startKey, nextKey));
+                    parents[next] = (key, move);
+                    if (space.IsSolved(next))
+                        return new SolveResult(true, Reconstruct(parents, startKey, next));
                     if (maxStates > 0 && parents.Count >= maxStates)
                         return new SolveResult(false, new List<Move>());
-                    queue.Enqueue(nextKey);
+                    queue.Enqueue(next);
                 }
             }
             return new SolveResult(false, new List<Move>());
@@ -96,20 +79,6 @@ namespace Blocktrotter.Core
                 moves.Add(parents[k].Move);
             moves.Reverse();
             return moves;
-        }
-
-        private static ulong Pack(int[] positions)
-        {
-            ulong key = 0;
-            for (int i = 0; i < positions.Length; i++)
-                key |= (ulong)positions[i] << (i * BitsPerBlock);
-            return key;
-        }
-
-        private static void Unpack(ulong key, int[] positions)
-        {
-            for (int i = 0; i < positions.Length; i++)
-                positions[i] = (int)((key >> (i * BitsPerBlock)) & 0b111);
         }
     }
 }
