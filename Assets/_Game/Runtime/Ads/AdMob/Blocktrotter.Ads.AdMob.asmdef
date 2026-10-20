@@ -1,0 +1,25 @@
+{
+    "name": "Blocktrotter.Ads.AdMob",
+    "rootNamespace": "Blocktrotter.Ads",
+    "references": [
+        "Blocktrotter.Game",
+        "Unity.Advertisement.IosSupport"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "BLOCKTROTTER_ADMOB"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.google.ads.mobile",
+            "expression": "",
+            "define": "BLOCKTROTTER_ADMOB"
+        }
+    ],
+    "noEngineReferences": false
+}

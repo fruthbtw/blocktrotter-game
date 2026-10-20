@@ -31,7 +31,9 @@ namespace Blocktrotter.Screens
         private BoardView _board;
         private Text _levelLabel, _movesLabel, _hintLabel;
         private Button _prevButton, _nextButton;
-        private RectTransform _pauseOverlay, _solvedOverlay;
+        private RectTransform _pauseOverlay, _solvedOverlay, _hintOverlay;
+        private Text _hintOverlayBody;
+        private Button _hintWatchButton;
         private Text _solvedMoves;
         private Image[] _solvedStars;
         private RectTransform _solvedPanel;
@@ -52,11 +54,13 @@ namespace Blocktrotter.Screens
             BuildBottomButtons();
             _pauseOverlay = BuildPauseOverlay();
             _solvedOverlay = BuildSolvedOverlay();
+            _hintOverlay = BuildHintOverlay();
             _board.Show(_session.Board);
             if (_session.IsSolved) _board.InputLocked = true;
             RefreshHud();
             if (AppShell.App.Arg("--autosolve") != null && !_session.IsSolved)
                 _board.StartCoroutine(AutoSolve());
+            if (AppShell.App.Arg("--open-hint-dialog") != null) OnHint();   // capture the rewarded-hint dialog
         }
 
         /// <summary>Plays the optimal solution (run-and-observe captures only).</summary>
@@ -106,6 +110,7 @@ namespace Blocktrotter.Screens
                 int stars = StarRating.Calculate(_session.MoveCount, Par, App.Config.TwoStarRatio);
                 App.Progress.RecordSolve(_levelIndex, stars);
                 App.SaveProgress();
+                App.AdPolicy.RegisterSolve();
                 _board.PlayExit(() => _board.StartCoroutine(Celebrate(stars)));
             }
         }
@@ -149,6 +154,15 @@ namespace Blocktrotter.Screens
 
         private void OnSolvedNext()
         {
+            // Interstitial only on the player's own tap after the celebration, never mid-play.
+            if (App.AdPolicy.TryConsumeInterstitial(Time.realtimeSinceStartupAsDouble))
+                App.Ads.ShowInterstitial(GoToNext);
+            else
+                GoToNext();
+        }
+
+        private void GoToNext()
+        {
             int next = Mathf.Min(_levelIndex + 1, App.Levels.Count - 1);
             if (_solveOpenedWorld)
                 App.ShowWorldUnlocked(App.WorldOf(next));
@@ -160,7 +174,13 @@ namespace Blocktrotter.Screens
 
         private void OnHint()
         {
-            if (_board.InputLocked || !_session.UseHint(App.Hints).HasValue) return;
+            if (_board.InputLocked) return;
+            if (App.Hints.Count == 0)
+            {
+                OpenHintOverlay();
+                return;
+            }
+            if (!_session.UseHint(App.Hints).HasValue) return;
             App.SaveProgress();
             AfterBoardChanged();
         }
@@ -266,6 +286,51 @@ namespace Blocktrotter.Screens
                 OnSolvedNext, primary: true);
             _solvedPanel = panel;
             ThemedButton("Replay", panel, new Vector2(0, -290), new Vector2(560, 120), T("solved.replay"), 46, OnRestart);
+            return overlay;
+        }
+
+        private void OpenHintOverlay()
+        {
+            bool ready = App.Ads.IsRewardedReady;
+            _hintOverlayBody.text = ready ? T("hint.empty.body", App.Config.HintsPerRewardedAd) : T("hint.notready");
+            _hintWatchButton.interactable = ready;
+            _hintOverlay.gameObject.SetActive(true);
+            _board.InputLocked = true;
+        }
+
+        private void CloseHintOverlay()
+        {
+            _hintOverlay.gameObject.SetActive(false);
+            _board.InputLocked = _session.IsSolved;
+        }
+
+        private void WatchRewardedForHint()
+        {
+            _hintOverlay.gameObject.SetActive(false);
+            App.Ads.ShowRewarded(
+                onRewarded: () =>
+                {
+                    App.Hints.Add(App.Config.HintsPerRewardedAd);
+                    App.SaveProgress();
+                },
+                onDone: () =>
+                {
+                    if (Root == null) return;   // screen changed while the ad was up
+                    _board.InputLocked = _session.IsSolved;
+                    RefreshHud();
+                });
+        }
+
+        private RectTransform BuildHintOverlay()
+        {
+            RectTransform overlay = Overlay("HintOverlay", out RectTransform panel, 860);
+            Title(panel, T("hint.empty.title"), 310);
+            UiFactory.Image(UiFactory.Rect("Bulb", panel, new Vector2(0, 170), Vector2.one * 130), Theme.ExitColor, ProceduralIcons.Bulb);
+            RectTransform body = UiFactory.Rect("Body", panel, new Vector2(0, 30), new Vector2(760, 110));
+            _hintOverlayBody = UiFactory.Label(body, "", 44, Theme.TextColor, FontStyle.Normal);
+            _hintWatchButton = ThemedButton("Watch", panel, new Vector2(0, -130), new Vector2(560, 140), T("hint.watch"), 52,
+                WatchRewardedForHint, primary: true);
+            ThemedButton("Cancel", panel, new Vector2(0, -290), new Vector2(560, 110), T("hint.cancel"), 44, CloseHintOverlay);
             return overlay;
         }
 

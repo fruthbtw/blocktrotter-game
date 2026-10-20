@@ -1,3 +1,4 @@
+using Blocktrotter.Ads;
 using Blocktrotter.Core;
 using Blocktrotter.Data;
 using Blocktrotter.Localization;
@@ -18,7 +19,8 @@ namespace Blocktrotter.AppShell
     /// Launch arguments for run-and-observe captures:
     /// <c>--screen menu|worlds|levels|settings|unlocked</c>, <c>--world N</c> (1-based),
     /// <c>--level N</c> (1-based, opens the game screen), <c>--lang en|tr</c>,
-    /// <c>--demo-progress N</c> (pretend the first N levels are solved; not saved).
+    /// <c>--demo-progress N</c> (pretend the first N levels are solved; not saved), <c>--hints N</c> (with demo progress),
+    /// <c>--no-ads</c>.
     /// </summary>
     public sealed class App : MonoBehaviour
     {
@@ -27,6 +29,7 @@ namespace Blocktrotter.AppShell
         [SerializeField] private LevelDatabase _levels;
         [SerializeField] private GameConfig _config;
         [SerializeField] private ThemeDefinition[] _themes;
+        [SerializeField] private AdConfig _adConfig;
         [SerializeField] private TextAsset _englishStrings;
         [SerializeField] private TextAsset _turkishStrings;
 
@@ -35,7 +38,7 @@ namespace Blocktrotter.AppShell
         private Image _background;
         private ThemeDecor _decor;
         private ThemeDefinition _decorTheme;
-        private RectTransform _screenLayer, _overlayLayer;
+        private RectTransform _screenLayer, _overlayLayer, _adLayer;
         private UiScreen _current, _overlay;
         private readonly System.Collections.Generic.Dictionary<ThemeDefinition, Sprite> _gradients =
             new System.Collections.Generic.Dictionary<ThemeDefinition, Sprite>();
@@ -54,6 +57,12 @@ namespace Blocktrotter.AppShell
 
         /// <summary>Hints the player owns; written back to progress on save.</summary>
         public HintWallet Hints { get; private set; }
+
+        /// <summary>Ad network (or a stand-in in the editor).</summary>
+        public IAdService Ads { get; private set; }
+
+        /// <summary>Decides when interstitials are due.</summary>
+        public AdPolicy AdPolicy { get; private set; }
 
         /// <summary>Number of worlds (themes).</summary>
         public int WorldCount => Mathf.CeilToInt((float)_levels.Count / _config.LevelsPerTheme);
@@ -85,7 +94,10 @@ namespace Blocktrotter.AppShell
 
             EnsureEventSystem();
             BuildCanvas();
+            AdPolicy = new AdPolicy(_config.InterstitialEveryLevels, _config.InterstitialMinIntervalSeconds);
+            Ads = CreateAdService();
             OpenFromArgs();
+            Ads.Initialize(UpdateBanner);
         }
 
         // ------------------------------------------------------------ navigation
@@ -149,6 +161,7 @@ namespace Blocktrotter.AppShell
             if (!_gradients.TryGetValue(screen.Theme, out Sprite gradient))
                 _gradients[screen.Theme] = gradient = ProceduralSprites.VerticalGradient(screen.Theme.BackgroundBottom, screen.Theme.BackgroundTop);
             _background.sprite = gradient;
+            UpdateBanner();
             if (_decorTheme != screen.Theme)
             {
                 _decorTheme = screen.Theme;
@@ -175,6 +188,28 @@ namespace Blocktrotter.AppShell
             _screenLayer = UiFactory.Stretch("Screens", canvas.transform);
             _screenLayer.gameObject.AddComponent<SafeAreaFitter>();
             _overlayLayer = UiFactory.Stretch("Overlays", canvas.transform);
+            _adLayer = UiFactory.Stretch("Ads", canvas.transform);   // above everything, like a real ad view
+        }
+
+        /// <summary>Banner only on the main menu (plan: ads must not cover gameplay).</summary>
+        private void UpdateBanner()
+        {
+            if (Ads == null) return;
+            if (_current is MainMenuScreen) Ads.ShowBanner();
+            else Ads.HideBanner();
+        }
+
+        private IAdService CreateAdService()
+        {
+            if (_adConfig == null || !_adConfig.AdsEnabled || Arg("--no-ads") != null) return new NoAdService();
+#if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)   // AdMob only runs on phones
+            if (AdServiceFactory.DeviceFactory != null)
+            {
+                if (_adConfig.UsesTestIds) Debug.LogWarning("[Ads] Using Google TEST ad units — replace them in AdConfig before release.");
+                return AdServiceFactory.DeviceFactory(_adConfig);
+            }
+#endif
+            return new EditorAdService(_adLayer);
         }
 
         private void OpenFromArgs()
@@ -202,7 +237,7 @@ namespace Blocktrotter.AppShell
             Progress = PlayerProgress.Create(_levels.Count, _config.StartingHints);
             for (int i = 0; i < Mathf.Min(solved, _levels.Count); i++)
                 Progress.RecordSolve(i, 1 + i % 3);
-            Hints = new HintWallet(Progress.Hints);
+            Hints = new HintWallet(int.TryParse(Arg("--hints"), out int hints) ? hints : Progress.Hints);
         }
 
         private static void EnsureEventSystem()

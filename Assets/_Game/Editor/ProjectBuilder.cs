@@ -18,6 +18,7 @@ namespace Blocktrotter.EditorTools
     {
         public const string ScenePath = "Assets/_Game/Scenes/Game.unity";
         public const string ConfigPath = "Assets/_Game/Data/GameConfig.asset";
+        public const string AdConfigPath = "Assets/_Game/Data/AdConfig.asset";
         public const string ThemesFolder = "Assets/_Game/Data/Themes";
         public const string EnglishPath = "Assets/_Game/Data/Localization/en.txt";
         public const string TurkishPath = "Assets/_Game/Data/Localization/tr.txt";
@@ -32,6 +33,7 @@ namespace Blocktrotter.EditorTools
             // NewScene(Single) unloads unused assets, so load references after it.
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var config = LoadOrCreate<GameConfig>(ConfigPath);
+            var adConfig = LoadOrCreate<Ads.AdConfig>(AdConfigPath);
             ThemeDefinition[] themes = LoadOrCreateThemes();
             var levels = AssetDatabase.LoadAssetAtPath<LevelDatabase>(LevelGeneratorMenu.DatabasePath);
             var en = AssetDatabase.LoadAssetAtPath<TextAsset>(EnglishPath);
@@ -48,6 +50,7 @@ namespace Blocktrotter.EditorTools
             var so = new SerializedObject(app);
             so.FindProperty("_levels").objectReferenceValue = levels;
             so.FindProperty("_config").objectReferenceValue = config;
+            so.FindProperty("_adConfig").objectReferenceValue = adConfig;
             SerializedProperty themeList = so.FindProperty("_themes");
             themeList.arraySize = themes.Length;
             for (int i = 0; i < themes.Length; i++)
@@ -59,6 +62,7 @@ namespace Blocktrotter.EditorTools
             EditorSceneManager.SaveScene(scene, ScenePath);
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };
 
+            AdMobSettingsSetup.Configure();
             PlayerSettings.productName = "Blocktrotter";
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
             AssetDatabase.SaveAssets();

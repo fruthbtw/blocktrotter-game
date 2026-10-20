@@ -22,6 +22,12 @@ namespace Blocktrotter.Data
         [Tooltip("Show an interstitial after every N solved levels.")]
         [Min(1)] public int InterstitialEveryLevels = 5;
 
+        [Tooltip("Never show two interstitials closer than this (seconds).")]
+        [Min(0f)] public float InterstitialMinIntervalSeconds = 45f;
+
+        [Tooltip("Hints granted for watching one rewarded ad.")]
+        [Min(1)] public int HintsPerRewardedAd = 1;
+
         [Header("Themes")]
         [Tooltip("Levels per theme before the next theme starts.")]
         [Min(1)] public int LevelsPerTheme = 100;

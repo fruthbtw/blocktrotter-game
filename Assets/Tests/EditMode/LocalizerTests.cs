@@ -22,6 +22,21 @@ namespace Blocktrotter.Tests
             Assert.AreEqual("Line1\nLine2", table["c"]);
         }
 
+        [TestCase(EnglishPath)]
+        [TestCase(TurkishPath)]
+        public void StringTable_EveryLineIsCommentBlankOrKeyValue(string path)
+        {
+            // Regression: a literal newline inside a value split it into an orphan line that Parse silently dropped.
+            string[] lines = AssetDatabase.LoadAssetAtPath<TextAsset>(path).text.Split('\n');
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i].TrimEnd('\r');
+                if (line.Length == 0 || line[0] == '#') continue;
+                Assert.Greater(line.IndexOf('='), 0, $"{path} line {i + 1} is not key=value: \"{line}\"");
+            }
+        }
+
         [Test]
         public void EnglishAndTurkish_HaveTheSameKeys()
         {
