@@ -54,6 +54,15 @@ namespace Blocktrotter.UI
             return image;
         }
 
+        /// <summary>Full-rect, square-cornered tint that blocks touches (dims the screen behind a panel).</summary>
+        public static Image Dim(RectTransform rt, Color color)
+        {
+            Image image = Image(rt, color, raycast: true);
+            image.sprite = null;   // plain quad: no rounded corners at the screen edges
+            image.type = UnityEngine.UI.Image.Type.Simple;
+            return image;
+        }
+
         /// <summary>Text filling <paramref name="parent"/>, centred.</summary>
         public static Text Label(RectTransform parent, string text, int fontSize, Color color, FontStyle style = FontStyle.Bold)
         {
@@ -69,6 +78,24 @@ namespace Blocktrotter.UI
             label.verticalOverflow = VerticalWrapMode.Overflow;
             label.raycastTarget = false;
             return label;
+        }
+
+        /// <summary>Three star images in a row, centred on <paramref name="parent"/>; colour them with <see cref="SetStars"/>.</summary>
+        public static Image[] StarRow(RectTransform parent, Vector2 center, float size, float spacing)
+        {
+            var stars = new Image[3];
+            for (int i = 0; i < 3; i++)
+            {
+                RectTransform rt = Rect($"Star{i}", parent, center + new Vector2((i - 1) * (size + spacing), 0f), Vector2.one * size);
+                stars[i] = Image(rt, Color.white, ProceduralSprites.Star);
+            }
+            return stars;
+        }
+
+        /// <summary>First <paramref name="count"/> stars get <paramref name="on"/>, the rest <paramref name="off"/>.</summary>
+        public static void SetStars(Image[] stars, int count, Color on, Color off)
+        {
+            for (int i = 0; i < stars.Length; i++) stars[i].color = i < count ? on : off;
         }
 
         /// <summary>Rounded button with a centred label.</summary>

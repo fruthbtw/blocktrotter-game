@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36c9b9e9775647f4f8d6612c0da6e304, type: 3}
+  m_Name: Theme_Arctic
+  m_EditorClassIdentifier: Blocktrotter.Game::Blocktrotter.Data.ThemeDefinition
+  NameKey: theme.arctic
+  BackgroundTop: {r: 0.7490196, g: 0.8901961, b: 0.9607843, a: 1}
+  BackgroundBottom: {r: 0.9490196, g: 0.98039216, b: 1, a: 1}
+  PanelColor: {r: 0.18431373, g: 0.3529412, b: 0.47843137, a: 1}
+  TextColor: {r: 1, g: 1, b: 1, a: 1}
+  ButtonColor: {r: 0.24705882, g: 0.4509804, b: 0.6039216, a: 1}
+  BoardFrameColor: {r: 0.12156863, g: 0.24705882, b: 0.34117648, a: 1}
+  BoardColor: {r: 0.36078432, g: 0.5529412, b: 0.7019608, a: 1}
+  ExitColor: {r: 1, g: 0.81960785, b: 0.4, a: 1}
+  BlockColor: {r: 0.95686275, g: 0.9843137, b: 1, a: 1}
+  BlockShadowColor: {r: 0.12156863, g: 0.24705882, b: 0.34117648, a: 1}
+  TargetColor: {r: 0.9019608, g: 0.22352941, b: 0.27450982, a: 1}

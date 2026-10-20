@@ -18,7 +18,7 @@ namespace Blocktrotter.EditorTools
     {
         public const string ScenePath = "Assets/_Game/Scenes/Game.unity";
         public const string ConfigPath = "Assets/_Game/Data/GameConfig.asset";
-        public const string GardenThemePath = "Assets/_Game/Data/Themes/Theme_Garden.asset";
+        public const string ThemesFolder = "Assets/_Game/Data/Themes";
         public const string EnglishPath = "Assets/_Game/Data/Localization/en.txt";
         public const string TurkishPath = "Assets/_Game/Data/Localization/tr.txt";
         public const string WindowsBuildPath = "Builds/Win64/Blocktrotter.exe";
@@ -32,7 +32,7 @@ namespace Blocktrotter.EditorTools
             // NewScene(Single) unloads unused assets, so load references after it.
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var config = LoadOrCreate<GameConfig>(ConfigPath);
-            var theme = LoadOrCreate<ThemeDefinition>(GardenThemePath);
+            ThemeDefinition[] themes = LoadOrCreateThemes();
             var levels = AssetDatabase.LoadAssetAtPath<LevelDatabase>(LevelGeneratorMenu.DatabasePath);
             var en = AssetDatabase.LoadAssetAtPath<TextAsset>(EnglishPath);
             var tr = AssetDatabase.LoadAssetAtPath<TextAsset>(TurkishPath);
@@ -42,13 +42,16 @@ namespace Blocktrotter.EditorTools
             var camera = cameraGo.GetComponent<Camera>();
             camera.orthographic = true;
             camera.clearFlags = CameraClearFlags.SolidColor;
-            camera.backgroundColor = theme.BackgroundBottom;
+            camera.backgroundColor = themes[0].BackgroundBottom;
 
-            var screen = new GameObject("GameScreen").AddComponent<GameScreen>();
-            var so = new SerializedObject(screen);
+            var app = new GameObject("App").AddComponent<AppShell.App>();
+            var so = new SerializedObject(app);
             so.FindProperty("_levels").objectReferenceValue = levels;
             so.FindProperty("_config").objectReferenceValue = config;
-            so.FindProperty("_theme").objectReferenceValue = theme;
+            SerializedProperty themeList = so.FindProperty("_themes");
+            themeList.arraySize = themes.Length;
+            for (int i = 0; i < themes.Length; i++)
+                themeList.GetArrayElementAtIndex(i).objectReferenceValue = themes[i];
             so.FindProperty("_englishStrings").objectReferenceValue = en;
             so.FindProperty("_turkishStrings").objectReferenceValue = tr;
             so.ApplyModifiedPropertiesWithoutUndo();
@@ -92,6 +95,48 @@ namespace Blocktrotter.EditorTools
         {
             EditorApplication.Exit(BuildWindows() ? 0 : 1);
         }
+
+        /// <summary>
+        /// The five worlds, in play order. Palettes are written only when an asset is
+        /// first created; after that the asset is the source of truth (tweak it in the Inspector).
+        /// </summary>
+        private static ThemeDefinition[] LoadOrCreateThemes()
+        {
+            return new[]
+            {
+                Theme("Garden", "theme.garden", "#F9D8E3", "#FDF1F4", "#3E4C3A", "#566B50", "#2F3A2C", "#4E6B4A", "#ECDCB0", "#2A3327", "#D7263D", "#F2C14E"),
+                Theme("Desert", "theme.desert", "#F6C978", "#FBE7C0", "#7A4B2A", "#9C6436", "#5C3A21", "#B9783F", "#F4E4C1", "#6B4423", "#C8102E", "#FFD54F"),
+                Theme("Island", "theme.island", "#7FD8F0", "#E0F7FA", "#0E6E7E", "#138A9C", "#0A4F5A", "#2A9DA8", "#FFF3D6", "#0A4F5A", "#FF5A4E", "#FFE066"),
+                Theme("Arctic", "theme.arctic", "#BFE3F5", "#F2FAFF", "#2F5A7A", "#3F739A", "#1F3F57", "#5C8DB3", "#F4FBFF", "#1F3F57", "#E63946", "#FFD166"),
+                Theme("Neon", "theme.neon", "#1A1035", "#3B1E6B", "#24124A", "#3A1F73", "#0E0820", "#1B1236", "#2EC4F1", "#070414", "#FF2E88", "#F9F871"),
+            };
+        }
+
+        private static ThemeDefinition Theme(string file, string nameKey, string bgTop, string bgBottom, string panel,
+            string button, string frame, string board, string block, string shadow, string target, string exit)
+        {
+            string path = $"{ThemesFolder}/Theme_{file}.asset";
+            var existing = AssetDatabase.LoadAssetAtPath<ThemeDefinition>(path);
+            if (existing != null) return existing;
+
+            var t = ScriptableObject.CreateInstance<ThemeDefinition>();
+            t.NameKey = nameKey;
+            t.BackgroundTop = Hex(bgTop);
+            t.BackgroundBottom = Hex(bgBottom);
+            t.PanelColor = Hex(panel);
+            t.ButtonColor = Hex(button);
+            t.BoardFrameColor = Hex(frame);
+            t.BoardColor = Hex(board);
+            t.BlockColor = Hex(block);
+            t.BlockShadowColor = Hex(shadow);
+            t.TargetColor = Hex(target);
+            t.ExitColor = Hex(exit);
+            t.TextColor = Color.white;
+            AssetDatabase.CreateAsset(t, path);
+            return t;
+        }
+
+        private static Color Hex(string hex) => ColorUtility.TryParseHtmlString(hex, out Color c) ? c : Color.magenta;
 
         private static T LoadOrCreate<T>(string path) where T : ScriptableObject
         {
