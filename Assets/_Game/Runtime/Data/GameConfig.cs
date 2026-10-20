@@ -30,7 +30,24 @@ namespace Blocktrotter.Data
         [Tooltip("How quickly blocks snap to their cell (higher = snappier).")]
         [Min(1f)] public float BlockSnapSharpness = 22f;
 
-        [Tooltip("Seconds between the target leaving the board and the solved panel.")]
-        [Min(0f)] public float SolvedPanelDelay = 0.4f;
+        [Tooltip("Seconds between the target leaving the board and the solved panel (confetti plays meanwhile).")]
+        [Min(0f)] public float SolvedPanelDelay = 0.9f;
+
+        [Header("Celebration")]
+        [Tooltip("Confetti pieces per solve.")]
+        [Min(0)] public int ConfettiCount = 90;
+
+        [Tooltip("Confetti lifetime in seconds.")]
+        [Min(0.1f)] public float ConfettiDuration = 1.4f;
+
+        [Tooltip("Solved panel pop-in duration in seconds.")]
+        [Min(0.01f)] public float PanelPopDuration = 0.25f;
+
+        [Tooltip("Seconds between each star popping in.")]
+        [Min(0f)] public float StarPopInterval = 0.18f;
+
+        [Header("Background decor")]
+        [Tooltip("Drifting decor pieces (petals, snow, ...) on screen at once.")]
+        [Min(0)] public int DecorParticleCount = 18;
     }
 }

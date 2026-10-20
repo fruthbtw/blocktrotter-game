@@ -59,6 +59,9 @@ namespace Blocktrotter.UI
         {
             Image image = Image(rt, color, raycast: true);
             image.sprite = null;   // plain quad: no rounded corners at the screen edges
+            // Overlays live inside the safe area; reach past it so the notch and home bar dim too.
+            rt.offsetMin -= Vector2.one * 600f;
+            rt.offsetMax += Vector2.one * 600f;
             image.type = UnityEngine.UI.Image.Type.Simple;
             return image;
         }
@@ -96,6 +99,44 @@ namespace Blocktrotter.UI
         public static void SetStars(Image[] stars, int count, Color on, Color off)
         {
             for (int i = 0; i < stars.Length; i++) stars[i].color = i < count ? on : off;
+        }
+
+        /// <summary>
+        /// Makes a locked (non-interactable) element look muted but stay opaque, so
+        /// background decor never shows through. Replaces Unity's half-transparent
+        /// disabled tint for this button.
+        /// </summary>
+        public static void ApplyLockedLook(Button button, Image background, Color muted, float contentAlpha = 0.45f)
+        {
+            ColorBlock colors = button.colors;
+            colors.disabledColor = Color.white;
+            button.colors = colors;
+            background.color = muted;
+            foreach (Graphic g in button.GetComponentsInChildren<Graphic>())
+                if (g != background) g.color = g.color * new Color(1f, 1f, 1f, contentAlpha);
+        }
+
+        /// <summary>Rounded button showing a centred icon instead of text.</summary>
+        public static Button IconButton(string name, Transform parent, Vector2 position, Vector2 size,
+            Sprite icon, float iconSize, Color background, Color iconColor, UnityAction onClick)
+        {
+            RectTransform rt = Rect(name, parent, position, size);
+            Image image = Image(rt, background, raycast: true);
+            var button = rt.gameObject.AddComponent<Button>();
+            button.targetGraphic = image;
+            button.onClick.AddListener(onClick);
+            Image(Rect("Icon", rt, Vector2.zero, Vector2.one * iconSize), iconColor, icon);
+            return button;
+        }
+
+        /// <summary>Small round count badge in the top-right corner of <paramref name="parent"/>; returns its label.</summary>
+        public static Text Badge(RectTransform parent, float diameter, Color background, Color textColor)
+        {
+            RectTransform rt = Rect("Badge", parent, Vector2.zero, Vector2.one * diameter);
+            rt.anchorMin = rt.anchorMax = Vector2.one;
+            rt.anchoredPosition = new Vector2(-diameter * 0.3f, -diameter * 0.3f);
+            Image(rt, background, ProceduralSprites.Circle);
+            return Label(rt, "", Mathf.RoundToInt(diameter * 0.55f), textColor);
         }
 
         /// <summary>Rounded button with a centred label.</summary>

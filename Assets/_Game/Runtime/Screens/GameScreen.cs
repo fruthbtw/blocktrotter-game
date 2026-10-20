@@ -23,6 +23,7 @@ namespace Blocktrotter.Screens
         private static readonly Vector2 TopPanelSize = new Vector2(1000, 280);
         private const float ButtonRowY = -640f;
         private static readonly Vector2 ButtonSize = new Vector2(230, 150);
+        private const float IconSize = 110f;
 
         private int _levelIndex;
         private GameSession _session;
@@ -33,6 +34,8 @@ namespace Blocktrotter.Screens
         private RectTransform _pauseOverlay, _solvedOverlay;
         private Text _solvedMoves;
         private Image[] _solvedStars;
+        private RectTransform _solvedPanel;
+        private bool _solveOpenedWorld;
 
         /// <summary>Opens the screen on a 0-based level index.</summary>
         public GameScreen(int levelIndex) => _levelIndex = levelIndex;
@@ -52,6 +55,19 @@ namespace Blocktrotter.Screens
             _board.Show(_session.Board);
             if (_session.IsSolved) _board.InputLocked = true;
             RefreshHud();
+            if (AppShell.App.Arg("--autosolve") != null && !_session.IsSolved)
+                _board.StartCoroutine(AutoSolve());
+        }
+
+        /// <summary>Plays the optimal solution (run-and-observe captures only).</summary>
+        private IEnumerator AutoSolve()
+        {
+            yield return new WaitForSecondsRealtime(0.3f);
+            foreach (Move move in BoardSolver.Solve(_session.Board).Moves)
+            {
+                OnMoveRequested(move);
+                yield return new WaitForSecondsRealtime(0.2f);
+            }
         }
 
         private void LoadLevel(int index)
@@ -84,20 +100,60 @@ namespace Blocktrotter.Screens
             RefreshHud();
             if (_session.IsSolved)
             {
+                int next = _levelIndex + 1;
+                _solveOpenedWorld = next < App.Levels.Count && App.WorldOf(next) != App.WorldOf(_levelIndex)
+                                    && !App.Progress.IsUnlocked(next);
                 int stars = StarRating.Calculate(_session.MoveCount, Par, App.Config.TwoStarRatio);
                 App.Progress.RecordSolve(_levelIndex, stars);
                 App.SaveProgress();
-                _board.PlayExit(() => _board.StartCoroutine(ShowSolvedAfterDelay(stars)));
+                _board.PlayExit(() => _board.StartCoroutine(Celebrate(stars)));
             }
         }
 
-        private IEnumerator ShowSolvedAfterDelay(int stars)
+        /// <summary>Confetti, then the solved panel pops in and stars appear one by one.</summary>
+        private IEnumerator Celebrate(int stars)
         {
-            yield return new WaitForSecondsRealtime(App.Config.SolvedPanelDelay);
+            GameConfig cfg = App.Config;
+            ConfettiBurst.Spawn(Root, new Vector2(0, BoardCenterY - BoardSize / 2f), cfg.ConfettiCount, cfg.ConfettiDuration,
+                new[] { Theme.TargetColor, Theme.ExitColor, Theme.BlockColor, Theme.DecorColor, Color.white });
+            yield return new WaitForSecondsRealtime(cfg.SolvedPanelDelay);
+
             _solvedMoves.text = T("solved.moves", _session.MoveCount, Par);
-            UiFactory.SetStars(_solvedStars, stars, Theme.ExitColor, new Color(0f, 0f, 0f, 0.3f));
+            Color off = new Color(0f, 0f, 0f, 0.3f);
+            UiFactory.SetStars(_solvedStars, 0, Theme.ExitColor, off);
             _solvedOverlay.gameObject.SetActive(true);
             RefreshHud();
+            yield return Pop(_solvedPanel, 0.7f, cfg.PanelPopDuration);
+
+            for (int i = 0; i < stars; i++)
+            {
+                yield return new WaitForSecondsRealtime(cfg.StarPopInterval);
+                _solvedStars[i].color = Theme.ExitColor;
+                _board.StartCoroutine(Pop((RectTransform)_solvedStars[i].transform, 0f, cfg.PanelPopDuration));
+            }
+        }
+
+        /// <summary>Scales from <paramref name="from"/> to 1 with a small overshoot.</summary>
+        private static IEnumerator Pop(RectTransform target, float from, float duration)
+        {
+            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            {
+                if (target == null) yield break;
+                float k = t / duration;
+                float eased = 1f + 2.2f * Mathf.Pow(k - 1f, 3f) + 1.2f * Mathf.Pow(k - 1f, 2f);   // ease-out-back
+                target.localScale = Vector3.one * Mathf.LerpUnclamped(from, 1f, eased);
+                yield return null;
+            }
+            if (target != null) target.localScale = Vector3.one;
+        }
+
+        private void OnSolvedNext()
+        {
+            int next = Mathf.Min(_levelIndex + 1, App.Levels.Count - 1);
+            if (_solveOpenedWorld)
+                App.ShowWorldUnlocked(App.WorldOf(next));
+            else
+                LoadLevel(next);
         }
 
         private int Par => App.Levels.Get(_levelIndex).MinMoves;
@@ -135,7 +191,7 @@ namespace Blocktrotter.Screens
         {
             _levelLabel.text = T("game.level", _levelIndex + 1);
             _movesLabel.text = T("game.moves", _session.MoveCount, Par);
-            _hintLabel.text = T("game.hint", App.Hints.Count);
+            _hintLabel.text = App.Hints.Count.ToString();
             _prevButton.interactable = _levelIndex > 0;
             _nextButton.interactable = _levelIndex + 1 < App.Levels.Count && App.Progress.IsUnlocked(_levelIndex + 1);
         }
@@ -175,11 +231,15 @@ namespace Blocktrotter.Screens
         {
             float step = ButtonSize.x + 30f;
             float x = -1.5f * step;
-            ThemedButton("Pause", Root, new Vector2(x, ButtonRowY), ButtonSize, T("game.pause"), 40, () => SetPaused(true));
-            Button hint = ThemedButton("Hint", Root, new Vector2(x + step, ButtonRowY), ButtonSize, "", 40, OnHint);
-            _hintLabel = hint.GetComponentInChildren<Text>();
-            ThemedButton("Undo", Root, new Vector2(x + 2 * step, ButtonRowY), ButtonSize, T("game.undo"), 40, OnUndo);
-            ThemedButton("Restart", Root, new Vector2(x + 3 * step, ButtonRowY), ButtonSize, T("game.restart"), 40, OnRestart);
+            UiFactory.IconButton("Pause", Root, new Vector2(x, ButtonRowY), ButtonSize, ProceduralIcons.Pause, IconSize,
+                Theme.ButtonColor, Theme.TextColor, () => SetPaused(true));
+            Button hint = UiFactory.IconButton("Hint", Root, new Vector2(x + step, ButtonRowY), ButtonSize, ProceduralIcons.Bulb, IconSize,
+                Theme.ButtonColor, Theme.ExitColor, OnHint);
+            _hintLabel = UiFactory.Badge((RectTransform)hint.transform, 64f, Theme.TargetColor, Theme.TextColor);
+            UiFactory.IconButton("Undo", Root, new Vector2(x + 2 * step, ButtonRowY), ButtonSize, ProceduralIcons.Undo, IconSize,
+                Theme.ButtonColor, Theme.TextColor, OnUndo);
+            UiFactory.IconButton("Restart", Root, new Vector2(x + 3 * step, ButtonRowY), ButtonSize, ProceduralIcons.Restart, IconSize,
+                Theme.ButtonColor, Theme.TextColor, OnRestart);
         }
 
         private RectTransform BuildPauseOverlay()
@@ -203,7 +263,8 @@ namespace Blocktrotter.Screens
             RectTransform moves = UiFactory.Rect("Moves", panel, new Vector2(0, 40), new Vector2(760, 80));
             _solvedMoves = UiFactory.Label(moves, "", 44, Theme.TextColor, FontStyle.Normal);
             ThemedButton("Next", panel, new Vector2(0, -120), new Vector2(560, 140), T("solved.next"), 56,
-                () => LoadLevel(Mathf.Min(_levelIndex + 1, App.Levels.Count - 1)), primary: true);
+                OnSolvedNext, primary: true);
+            _solvedPanel = panel;
             ThemedButton("Replay", panel, new Vector2(0, -290), new Vector2(560, 120), T("solved.replay"), 46, OnRestart);
             return overlay;
         }

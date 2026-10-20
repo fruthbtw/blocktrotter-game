@@ -29,7 +29,7 @@ namespace Blocktrotter.Screens
         {
             BackButton(App.ShowWorlds);
             RectTransform title = UiFactory.Rect("Title", Root, new Vector2(0, 790), new Vector2(760, 120));
-            UiFactory.Label(title, T(Theme.NameKey), 68, Theme.PanelColor);
+            UiFactory.Label(title, T(Theme.NameKey), 68, Theme.OnBackgroundColor);
 
             int start = App.WorldStart(_world), count = App.WorldSize(_world);
             int rows = Mathf.CeilToInt((float)count / Columns);
@@ -84,7 +84,8 @@ namespace Blocktrotter.Screens
             Image[] stars = UiFactory.StarRow(cell, new Vector2(0, -58), 40f, 4f);
             UiFactory.SetStars(stars, App.Progress.GetStars(levelIndex), Theme.ExitColor, new Color(0f, 0f, 0f, 0.25f));
 
-            if (!unlocked) cell.gameObject.AddComponent<CanvasGroup>().alpha = 0.45f;
+            if (!unlocked)
+                UiFactory.ApplyLockedLook(button, image, Color.Lerp(Theme.ButtonColor, Theme.BackgroundBottom, 0.55f));
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Blocktrotter.Screens
         {
             BackButton(App.ShowMainMenu);
             RectTransform title = UiFactory.Rect("Title", Root, new Vector2(0, 790), new Vector2(700, 120));
-            UiFactory.Label(title, T("worlds.title"), 76, Theme.PanelColor);
+            UiFactory.Label(title, T("worlds.title"), 76, Theme.OnBackgroundColor);
 
             for (int w = 0; w < App.WorldCount; w++)
                 BuildCard(w, new Vector2(0, FirstCardY - w * CardStep));
@@ -66,10 +66,7 @@ namespace Blocktrotter.Screens
             infoLabel.alignment = TextAnchor.MiddleLeft;
 
             if (!unlocked)
-            {
-                var group = card.gameObject.AddComponent<CanvasGroup>();
-                group.alpha = 0.55f;
-            }
+                UiFactory.ApplyLockedLook(button, bg, Color.Lerp(theme.PanelColor, Theme.BackgroundBottom, 0.6f), 0.55f);
         }
     }
 }

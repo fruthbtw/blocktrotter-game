@@ -17,4 +17,4 @@ MonoBehaviour:
   InterstitialEveryLevels: 5
   LevelsPerTheme: 100
   BlockSnapSharpness: 22
-  SolvedPanelDelay: 0.4
+  SolvedPanelDelay: 0.9

@@ -15,6 +15,7 @@ namespace Blocktrotter.UI
         private static Sprite _roundedRect;
         private static Sprite _circle;
         private static Sprite _star;
+        private static Sprite _triangle;
 
         /// <summary>White rounded rectangle with 9-slice borders; tint with Image.color.</summary>
         public static Sprite RoundedRect => _roundedRect != null ? _roundedRect : (_roundedRect = CreateRounded(RoundedSize, CornerRadius));
@@ -24,6 +25,10 @@ namespace Blocktrotter.UI
 
         /// <summary>White five-pointed star, anti-aliased.</summary>
         public static Sprite Star => _star != null ? _star : (_star = CreateStar(64));
+
+        /// <summary>White upward triangle (pivot at the bottom centre), anti-aliased.</summary>
+        public static Sprite Triangle => _triangle != null ? _triangle : (_triangle = CreatePolygon(64,
+            new[] { new Vector2(0, 0), new Vector2(64, 0), new Vector2(32, 64) }, new Vector2(0.5f, 0f)));
 
         /// <summary>Vertical gradient sprite (bottom to top).</summary>
         public static Sprite VerticalGradient(Color bottom, Color top)
@@ -47,6 +52,11 @@ namespace Blocktrotter.UI
                 poly[i] = new Vector2(size / 2f + Mathf.Cos(angle) * r, size / 2f + Mathf.Sin(angle) * r);
             }
 
+            return CreatePolygon(size, poly, new Vector2(0.5f, 0.5f));
+        }
+
+        private static Sprite CreatePolygon(int size, Vector2[] poly, Vector2 pivot)
+        {
             const int samples = 4;   // 4x4 supersampling for smooth edges
             var tex = new Texture2D(size, size, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp };
             var pixels = new Color32[size * size];
@@ -63,7 +73,7 @@ namespace Blocktrotter.UI
             }
             tex.SetPixels32(pixels);
             tex.Apply();
-            return Sprite.Create(tex, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f));
+            return Sprite.Create(tex, new Rect(0, 0, size, size), pivot);
         }
 
         private static bool Inside(Vector2[] poly, Vector2 p)

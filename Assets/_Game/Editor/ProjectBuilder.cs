@@ -104,11 +104,11 @@ namespace Blocktrotter.EditorTools
         {
             return new[]
             {
-                Theme("Garden", "theme.garden", "#F9D8E3", "#FDF1F4", "#3E4C3A", "#566B50", "#2F3A2C", "#4E6B4A", "#ECDCB0", "#2A3327", "#D7263D", "#F2C14E"),
-                Theme("Desert", "theme.desert", "#F6C978", "#FBE7C0", "#7A4B2A", "#9C6436", "#5C3A21", "#B9783F", "#F4E4C1", "#6B4423", "#C8102E", "#FFD54F"),
-                Theme("Island", "theme.island", "#7FD8F0", "#E0F7FA", "#0E6E7E", "#138A9C", "#0A4F5A", "#2A9DA8", "#FFF3D6", "#0A4F5A", "#FF5A4E", "#FFE066"),
-                Theme("Arctic", "theme.arctic", "#BFE3F5", "#F2FAFF", "#2F5A7A", "#3F739A", "#1F3F57", "#5C8DB3", "#F4FBFF", "#1F3F57", "#E63946", "#FFD166"),
-                Theme("Neon", "theme.neon", "#1A1035", "#3B1E6B", "#24124A", "#3A1F73", "#0E0820", "#1B1236", "#2EC4F1", "#070414", "#FF2E88", "#F9F871"),
+                Decor(Theme("Garden", "theme.garden", "#F9D8E3", "#FDF1F4", "#3E4C3A", "#566B50", "#2F3A2C", "#4E6B4A", "#ECDCB0", "#2A3327", "#D7263D", "#F2C14E"), DecorStyle.Petals, "#F49AB8", "#FFFFFF"),
+                Decor(Theme("Desert", "theme.desert", "#F6C978", "#FBE7C0", "#7A4B2A", "#9C6436", "#5C3A21", "#B9783F", "#F4E4C1", "#6B4423", "#C8102E", "#FFD54F"), DecorStyle.Dunes, "#E0A458", "#FFF1B8"),
+                Decor(Theme("Island", "theme.island", "#7FD8F0", "#E0F7FA", "#0E6E7E", "#138A9C", "#0A4F5A", "#2A9DA8", "#FFF3D6", "#0A4F5A", "#FF5A4E", "#FFE066"), DecorStyle.Waves, "#4FC3D9", "#FFE066"),
+                Decor(Theme("Arctic", "theme.arctic", "#BFE3F5", "#F2FAFF", "#2F5A7A", "#3F739A", "#1F3F57", "#5C8DB3", "#F4FBFF", "#1F3F57", "#E63946", "#FFD166"), DecorStyle.Snow, "#8FBFDF", "#FFFFFF"),
+                Decor(Theme("Neon", "theme.neon", "#1A1035", "#3B1E6B", "#24124A", "#3A1F73", "#0E0820", "#1B1236", "#2EC4F1", "#070414", "#FF2E88", "#F9F871"), DecorStyle.Skyline, "#1E0F3D", "#F9F871"),
             };
         }
 
@@ -133,6 +133,17 @@ namespace Blocktrotter.EditorTools
             t.ExitColor = Hex(exit);
             t.TextColor = Color.white;
             AssetDatabase.CreateAsset(t, path);
+            return t;
+        }
+
+        /// <summary>Fills decor fields only if the asset has none yet, so Inspector tweaks survive rebuilds.</summary>
+        private static ThemeDefinition Decor(ThemeDefinition t, DecorStyle style, string color, string accent)
+        {
+            if (t.Decor != DecorStyle.None) return t;
+            t.Decor = style;
+            t.DecorColor = Hex(color);
+            t.DecorAccentColor = Hex(accent);
+            EditorUtility.SetDirty(t);
             return t;
         }
 

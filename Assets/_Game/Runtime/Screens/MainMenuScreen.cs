@@ -30,7 +30,7 @@ namespace Blocktrotter.Screens
             ThemedButton("Play", Root, new Vector2(0, -60), new Vector2(680, 190),
                 T("menu.play"), 76, () => App.PlayLevel(App.Progress.FrontierLevel), primary: true);
             RectTransform level = UiFactory.Rect("PlayLevel", Root, new Vector2(0, -190), new Vector2(680, 60));
-            UiFactory.Label(level, T("game.level", App.Progress.FrontierLevel + 1), 44, Theme.PanelColor);
+            UiFactory.Label(level, T("game.level", App.Progress.FrontierLevel + 1), 44, Theme.OnBackgroundColor);
 
             ThemedButton("Worlds", Root, new Vector2(0, -330), new Vector2(680, 150),
                 T("menu.worlds"), 60, App.ShowWorlds);

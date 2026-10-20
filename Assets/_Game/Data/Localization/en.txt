@@ -1,10 +1,6 @@
 # Blocktrotter — English
 game.level=Level {0}
 game.moves=Moves {0}  ·  Best {1}
-game.pause=Pause
-game.hint=Hint ({0})
-game.undo=Undo
-game.restart=Restart
 pause.title=Paused
 pause.resume=Resume
 pause.restart=Restart
@@ -33,3 +29,6 @@ theme.desert=Egyptian Desert
 theme.island=Tropical Island
 theme.arctic=Arctic Glaciers
 theme.neon=Neon City
+world.unlocked=New world unlocked!
+world.levels=Levels {0}–{1}
+world.continue=Continue the journey

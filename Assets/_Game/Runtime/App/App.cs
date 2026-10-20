@@ -16,7 +16,7 @@ namespace Blocktrotter.AppShell
     /// saved progress, hints) and switches between screens. One instance lives in
     /// the Game scene.
     /// Launch arguments for run-and-observe captures:
-    /// <c>--screen menu|worlds|levels|settings</c>, <c>--world N</c> (1-based),
+    /// <c>--screen menu|worlds|levels|settings|unlocked</c>, <c>--world N</c> (1-based),
     /// <c>--level N</c> (1-based, opens the game screen), <c>--lang en|tr</c>,
     /// <c>--demo-progress N</c> (pretend the first N levels are solved; not saved).
     /// </summary>
@@ -33,6 +33,8 @@ namespace Blocktrotter.AppShell
         private IProgressStore _store;
         private bool _saveEnabled = true;
         private Image _background;
+        private ThemeDecor _decor;
+        private ThemeDefinition _decorTheme;
         private RectTransform _screenLayer, _overlayLayer;
         private UiScreen _current, _overlay;
         private readonly System.Collections.Generic.Dictionary<ThemeDefinition, Sprite> _gradients =
@@ -97,6 +99,9 @@ namespace Blocktrotter.AppShell
         /// <summary>Shows the level grid of one world.</summary>
         public void ShowLevels(int world) => Show(new LevelSelectScreen(world));
 
+        /// <summary>Celebrates a newly unlocked world, then continues to its first level.</summary>
+        public void ShowWorldUnlocked(int world) => Show(new WorldUnlockedScreen(world));
+
         /// <summary>Opens a level if it is unlocked.</summary>
         public void PlayLevel(int levelIndex)
         {
@@ -144,6 +149,11 @@ namespace Blocktrotter.AppShell
             if (!_gradients.TryGetValue(screen.Theme, out Sprite gradient))
                 _gradients[screen.Theme] = gradient = ProceduralSprites.VerticalGradient(screen.Theme.BackgroundBottom, screen.Theme.BackgroundTop);
             _background.sprite = gradient;
+            if (_decorTheme != screen.Theme)
+            {
+                _decorTheme = screen.Theme;
+                _decor.Apply(screen.Theme, _config.DecorParticleCount);
+            }
         }
 
         // ------------------------------------------------------------ setup
@@ -161,6 +171,7 @@ namespace Blocktrotter.AppShell
 
             _background = UiFactory.Image(UiFactory.Stretch("Background", canvas.transform), Color.white,
                 ProceduralSprites.VerticalGradient(Color.white, Color.white));
+            _decor = UiFactory.Stretch("Decor", canvas.transform).gameObject.AddComponent<ThemeDecor>();
             _screenLayer = UiFactory.Stretch("Screens", canvas.transform);
             _screenLayer.gameObject.AddComponent<SafeAreaFitter>();
             _overlayLayer = UiFactory.Stretch("Overlays", canvas.transform);
@@ -179,6 +190,7 @@ namespace Blocktrotter.AppShell
                 case "worlds": ShowWorlds(); break;
                 case "levels": ShowLevels(world); break;
                 case "settings": ShowMainMenu(); OpenSettings(); break;
+                case "unlocked": ShowWorldUnlocked(world); break;
                 default: ShowMainMenu(); break;
             }
         }
@@ -199,7 +211,8 @@ namespace Blocktrotter.AppShell
             new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
         }
 
-        private static string Arg(string name)
+        /// <summary>Value after a command-line flag, or null. Used for run-and-observe captures.</summary>
+        public static string Arg(string name)
         {
             string[] args = System.Environment.GetCommandLineArgs();
             for (int i = 0; i < args.Length - 1; i++)

@@ -24,3 +24,6 @@ MonoBehaviour:
   BlockColor: {r: 0.95686275, g: 0.9843137, b: 1, a: 1}
   BlockShadowColor: {r: 0.12156863, g: 0.24705882, b: 0.34117648, a: 1}
   TargetColor: {r: 0.9019608, g: 0.22352941, b: 0.27450982, a: 1}
+  Decor: 4
+  DecorColor: {r: 0.56078434, g: 0.7490196, b: 0.8745098, a: 1}
+  DecorAccentColor: {r: 1, g: 1, b: 1, a: 1}

@@ -1,10 +1,6 @@
 # Blocktrotter — Türkçe
 game.level=Bölüm {0}
 game.moves=Hamle {0}  ·  En iyi {1}
-game.pause=Duraklat
-game.hint=İpucu ({0})
-game.undo=Geri Al
-game.restart=Baştan
 pause.title=Duraklatıldı
 pause.resume=Devam Et
 pause.restart=Baştan Başla
@@ -33,3 +29,6 @@ theme.desert=Mısır Çölü
 theme.island=Tropik Ada
 theme.arctic=Kuzey Buzulları
 theme.neon=Neon Şehir
+world.unlocked=Yeni dünya açıldı!
+world.levels=Bölüm {0}–{1}
+world.continue=Yolculuğa devam
