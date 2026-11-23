@@ -2,7 +2,7 @@
 
 A sliding-block puzzle game for iOS (Android later), built in **Unity 6.3 LTS** with C#.
 Slide the blocks out of the way and guide the red block to the exit — across **5 worlds** and **500 levels**,
-in English and Turkish.
+in 8 languages.
 
 <p align="center">
   <img src="docs/screenshots/menu-garden.png" width="200" alt="Main menu, Japanese Garden world">
@@ -21,7 +21,7 @@ in English and Turkish.
 - **A red block with personality**: a light sweeps across it while you play; when the way is clear it winds up, dashes out with a stretch and a trail, and the exit gate flashes as it passes.
 - **Celebration**: confetti, a pop-in "Puzzle solved" panel with stars ringing in one by one, and a "New world unlocked!" screen.
 - **Sound**: 10 original effects synthesized from scratch in code (block snap, exit whoosh, star bells, solved jingle, taps, hint, undo, new world), with an on/off setting.
-- **English and Turkish**, picked from the device language and switchable in Settings.
+- **8 languages** — English, Turkish, Spanish, Portuguese (Brazil), Indonesian, Malay, Vietnamese and Thai — picked from the device language, with a language picker in Settings.
 - **Ads (Google AdMob)**: a banner on the main menu only, an interstitial every 5 solved levels or 200 seconds (only on the player's tap after a solve, never mid-puzzle) and an optional rewarded ad for a hint — with Google UMP consent and Apple App Tracking Transparency.
 - **Original art only**: icons, stars, confetti, bevel lighting and background decor are drawn in code; the block surfaces are seamless textures I generated with AI image generation and own. No asset packs, no third-party sprites — and deliberately no wood, so it looks like nothing else in the genre.
 
@@ -35,7 +35,7 @@ in English and Turkish.
 | **Look & feel** | `BlockSkins` paints every block face once per theme, size and orientation (texture sampling with mips, rounded corners, bevel light, per-style accents); `BoardView` drives the red block's wind-up/dash/trail exit and the gate; `SoundPlayer` mixes effects on a small voice pool. |
 | **Data-driven tuning** | `GameConfig`, `ThemeDefinition` ×5, `SoundConfig`, `AdConfig`, `LevelDatabase` ScriptableObjects — gameplay, feel, art and volume live in assets, not code. |
 | **Ads** | `IAdService` with an editor stand-in; the AdMob implementation sits in an optional assembly that compiles only when the Google Mobile Ads package is installed. |
-| **Tests** (`Assets/Tests/EditMode`) | 79 NUnit tests: board rules, solver, tutorial script, difficulty metric, generator determinism, every one of the 500 levels solved, replayed and checked for a detour, progress saving, ad pacing, localization tables, every sound wired. |
+| **Tests** (`Assets/Tests/EditMode`) | 110 NUnit tests: board rules, solver, tutorial script, difficulty metric, generator determinism, every one of the 500 levels solved, replayed and checked for a detour, progress saving, ad pacing, every language table has the same keys and placeholders, every sound wired. |
 
 <p align="center">
   <img src="docs/screenshots/world-desert.png" width="200" alt="Egyptian Desert: carved sandstone blocks">
