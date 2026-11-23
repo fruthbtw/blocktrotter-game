@@ -18,6 +18,13 @@ namespace Blocktrotter.EditorTools
         [Min(1)] public int MaxAttempts = 200_000;
         public int Seed = 20261020;
 
+        [Header("Thinking difficulty (see PuzzleDifficulty)")]
+        [Min(1)] public int CandidatesPerPick = 12;
+        [Min(0)] public int MinDetours = 1;
+        [Min(0f)] public float DetourWeight = 3f;
+        [Min(0f)] public float ReversalWeight = 2f;
+        [Min(0f)] public float EffortWeight = 1f;
+
         /// <summary>Copies these values into the pure-C# options object.</summary>
         public LevelGenerationOptions ToOptions() => new LevelGenerationOptions
         {
@@ -31,7 +38,12 @@ namespace Blocktrotter.EditorTools
             MaxLevelsPerCluster = MaxLevelsPerCluster,
             MaxClusterStates = MaxClusterStates,
             MaxAttempts = MaxAttempts,
-            Seed = Seed
+            Seed = Seed,
+            CandidatesPerPick = CandidatesPerPick,
+            MinDetours = MinDetours,
+            DetourWeight = DetourWeight,
+            ReversalWeight = ReversalWeight,
+            EffortWeight = EffortWeight
         };
     }
 }

@@ -23,8 +23,14 @@ namespace Blocktrotter.EditorTools
         {
             try
             {
-                Generate((done, total, attempts) => EditorUtility.DisplayProgressBar(
-                    "Generating levels", $"{done}/{total} levels · {attempts} boards tried", (float)done / total));
+                int lastShown = -1;   // redraw only when a level is added, not on every board
+                Generate((done, total, attempts) =>
+                {
+                    if (done == lastShown) return;
+                    lastShown = done;
+                    EditorUtility.DisplayProgressBar(
+                        "Generating levels", $"{done}/{total} levels · {attempts} boards tried", (float)done / total);
+                });
             }
             finally
             {
@@ -35,7 +41,11 @@ namespace Blocktrotter.EditorTools
         /// <summary>Batch-mode entry point; exits with code 1 if the set is incomplete.</summary>
         public static void GenerateBatch()
         {
-            bool complete = Generate(null);
+            // Log every few thousand boards so a long batch run can be followed in the log file.
+            bool complete = Generate((done, total, attempts) =>
+            {
+                if (attempts % 2000 == 0) Debug.Log($"[LevelGenerator] progress {done}/{total} levels, {attempts} boards tried");
+            });
             if (Application.isBatchMode)
                 EditorApplication.Exit(complete ? 0 : 1);
         }
@@ -46,13 +56,8 @@ namespace Blocktrotter.EditorTools
             LevelGenerationOptions options = settings.ToOptions();
 
             var timer = Stopwatch.StartNew();
-            int lastReported = -1;
-            LevelSetResult result = LevelSetGenerator.Generate(options, (done, attempts) =>
-            {
-                if (done == lastReported) return;
-                lastReported = done;
-                progress?.Invoke(done, options.LevelCount, attempts);
-            });
+            LevelSetResult result = LevelSetGenerator.Generate(options,
+                (done, attempts) => progress?.Invoke(done, options.LevelCount, attempts));
             timer.Stop();
 
             LevelDatabase database = LoadOrCreate<LevelDatabase>(DatabasePath);

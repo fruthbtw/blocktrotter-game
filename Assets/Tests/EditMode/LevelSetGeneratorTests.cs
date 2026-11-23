@@ -10,7 +10,7 @@ namespace Blocktrotter.Tests
         private static LevelGenerationOptions SmallSet() => new LevelGenerationOptions
         {
             LevelCount = 20,
-            MinMoves = 2,
+            MinMoves = 3,   // with MinDetours = 1 a 2-move puzzle is impossible (needs 0 blockers yet 2 moves)
             MaxMoves = 12,
             MaxAttempts = 20_000,
             Seed = 1234
@@ -60,6 +60,15 @@ namespace Blocktrotter.Tests
                 if (i > 0)
                     Assert.GreaterOrEqual(result.Levels[i].MinMoves, result.Levels[i - 1].MinMoves);
             }
+        }
+
+        [Test]
+        public void Generate_EveryLevelHasAtLeastOneDetour()
+        {
+            LevelSetResult result = LevelSetGenerator.Generate(SmallSet());
+
+            foreach (GeneratedLevel level in result.Levels)
+                Assert.GreaterOrEqual(PuzzleDifficulty.Analyze(LevelCodec.Decode(level.Code)).Detours, 1, level.Code);
         }
 
         [Test]

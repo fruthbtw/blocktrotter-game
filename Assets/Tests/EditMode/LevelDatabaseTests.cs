@@ -55,6 +55,14 @@ namespace Blocktrotter.Tests
         }
 
         [Test]
+        public void EveryLevel_NeedsAtLeastOneDetour()
+        {
+            // No "just clear the row" puzzles: each level must force a blocker-of-a-blocker move.
+            for (int i = 0; i < _database.Count; i++)
+                Assert.GreaterOrEqual(PuzzleDifficulty.Analyze(_database.LoadBoard(i)).Detours, 1, $"Level {i + 1}");
+        }
+
+        [Test]
         public void FirstLevel_IsNotAlreadySolved()
         {
             Assert.Greater(_database.Get(0).MinMoves, 0);

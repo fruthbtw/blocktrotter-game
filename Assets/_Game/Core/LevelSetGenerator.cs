@@ -38,6 +38,21 @@ namespace Blocktrotter.Core
 
         /// <summary>Seed; the same seed and options give the same level set.</summary>
         public int Seed = 20261020;
+
+        /// <summary>Candidate puzzles compared (by <see cref="PuzzleDifficulty"/>) for each level picked.</summary>
+        public int CandidatesPerPick = 12;
+
+        /// <summary>Puzzles with fewer detours than this are rejected (0 allows "just clear the row" puzzles).</summary>
+        public int MinDetours = 1;
+
+        /// <summary>Score weight per detour move (blocker-of-a-blocker).</summary>
+        public float DetourWeight = 3f;
+
+        /// <summary>Score weight per reversal (a block moved back the other way).</summary>
+        public float ReversalWeight = 2f;
+
+        /// <summary>Score weight per doubling of positions the solver explored.</summary>
+        public float EffortWeight = 1f;
     }
 
     /// <summary>One generated level.</summary>
@@ -49,11 +64,15 @@ namespace Blocktrotter.Core
         /// <summary>Optimal move count.</summary>
         public readonly int MinMoves;
 
+        /// <summary>Thinking-difficulty score (see <see cref="PuzzleDifficulty.Score"/>); orders levels with equal move counts.</summary>
+        public readonly float Score;
+
         /// <summary>Creates a level entry.</summary>
-        public GeneratedLevel(string code, int minMoves)
+        public GeneratedLevel(string code, int minMoves, float score = 0f)
         {
             Code = code;
             MinMoves = minMoves;
+            Score = score;
         }
     }
 
@@ -83,6 +102,9 @@ namespace Blocktrotter.Core
     /// <summary>
     /// Builds an original level set: random boards are explored as clusters and
     /// positions at the exact move counts the difficulty ramp asks for are kept.
+    /// For each pick several candidates are compared and the one that makes the
+    /// player think most (detours, reversals, search effort) wins; "just clear the
+    /// row" puzzles are rejected.
     /// </summary>
     /// <example>
     /// <code>
@@ -111,7 +133,7 @@ namespace Blocktrotter.Core
             }
 
             var rng = new Random(o.Seed);
-            var found = new List<(GeneratedLevel Level, int BlockCount)>();
+            var found = new List<GeneratedLevel>();
             var codes = new HashSet<string>();
             int remaining = o.LevelCount;
             int attempts = 0;
@@ -128,11 +150,11 @@ namespace Blocktrotter.Core
                 for (int d = Math.Min(cluster.MaxDistance, o.MaxMoves); d >= o.MinMoves && taken < o.MaxLevelsPerCluster; d--)
                 {
                     if (!needed.TryGetValue(d, out int want) || want == 0) continue;
-                    Board board = cluster.GetBoardAtDistance(d, rng.Next(cluster.CountAtDistance(d)));
-                    string code = LevelCodec.Encode(board);
-                    if (!codes.Add(code)) continue;
+                    GeneratedLevel? best = PickMostDemanding(cluster, d, rng, o, codes);
+                    if (best == null) continue;
 
-                    found.Add((new GeneratedLevel(code, d), board.Blocks.Count));
+                    codes.Add(best.Value.Code);
+                    found.Add(best.Value);
                     needed[d] = want - 1;
                     remaining--;
                     taken++;
@@ -140,16 +162,39 @@ namespace Blocktrotter.Core
                 progress?.Invoke(o.LevelCount - remaining, attempts);
             }
 
-            // Easiest first; at equal move counts, fewer blocks first.
-            found.Sort((a, b) => a.Level.MinMoves != b.Level.MinMoves
-                ? a.Level.MinMoves.CompareTo(b.Level.MinMoves)
-                : a.BlockCount.CompareTo(b.BlockCount));
+            // Easiest first; at equal move counts, the less demanding puzzle first.
+            found.Sort((a, b) => a.MinMoves != b.MinMoves ? a.MinMoves.CompareTo(b.MinMoves) : a.Score.CompareTo(b.Score));
 
-            var levels = found.ConvertAll(f => f.Level);
+            var levels = found;
             var missing = new Dictionary<int, int>();
             foreach (var pair in needed)
                 if (pair.Value > 0) missing[pair.Key] = pair.Value;
             return new LevelSetResult(levels, missing, attempts);
+        }
+
+        /// <summary>
+        /// Samples up to <see cref="LevelGenerationOptions.CandidatesPerPick"/> unused positions at
+        /// distance <paramref name="d"/> and returns the highest-scoring one with enough detours, or null.
+        /// </summary>
+        private static GeneratedLevel? PickMostDemanding(StateCluster cluster, int d, Random rng,
+            LevelGenerationOptions o, HashSet<string> usedCodes)
+        {
+            GeneratedLevel? best = null;
+            int count = cluster.CountAtDistance(d);
+            for (int c = 0; c < Math.Min(o.CandidatesPerPick, count); c++)
+            {
+                Board board = cluster.GetBoardAtDistance(d, rng.Next(count));
+                string code = LevelCodec.Encode(board);
+                if (usedCodes.Contains(code)) continue;
+
+                PuzzleDifficulty difficulty = PuzzleDifficulty.Analyze(board);
+                if (difficulty.MinMoves != d || difficulty.Detours < o.MinDetours) continue;
+
+                float score = difficulty.Score(o.DetourWeight, o.ReversalWeight, o.EffortWeight);
+                if (best == null || score > best.Value.Score)
+                    best = new GeneratedLevel(code, d, score);
+            }
+            return best;
         }
 
         /// <summary>

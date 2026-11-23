@@ -14,10 +14,14 @@ namespace Blocktrotter.Core
         /// <summary>Minimum number of moves, or -1 if unsolvable.</summary>
         public int MinMoves => IsSolvable ? Moves.Count : -1;
 
-        internal SolveResult(bool isSolvable, IReadOnlyList<Move> moves)
+        /// <summary>Positions the search visited; a rough measure of how many tempting paths the puzzle has.</summary>
+        public int StatesExplored { get; }
+
+        internal SolveResult(bool isSolvable, IReadOnlyList<Move> moves, int statesExplored = 0)
         {
             IsSolvable = isSolvable;
             Moves = moves;
+            StatesExplored = statesExplored;
         }
     }
 
@@ -56,13 +60,13 @@ namespace Blocktrotter.Core
                         continue;
                     parents[next] = (key, move);
                     if (space.IsSolved(next))
-                        return new SolveResult(true, Reconstruct(parents, startKey, next));
+                        return new SolveResult(true, Reconstruct(parents, startKey, next), parents.Count);
                     if (maxStates > 0 && parents.Count >= maxStates)
-                        return new SolveResult(false, new List<Move>());
+                        return new SolveResult(false, new List<Move>(), parents.Count);
                     queue.Enqueue(next);
                 }
             }
-            return new SolveResult(false, new List<Move>());
+            return new SolveResult(false, new List<Move>(), parents.Count);
         }
 
         /// <summary>Next optimal move from this position, or null if solved/unsolvable.</summary>

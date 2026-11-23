@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: LevelGenerationSettings
   m_EditorClassIdentifier: Blocktrotter.Editor::Blocktrotter.EditorTools.LevelGenerationSettings
   LevelCount: 500
-  MinMoves: 2
-  MaxMoves: 30
-  CurveExponent: 1.3
+  MinMoves: 5
+  MaxMoves: 20
+  CurveExponent: 1
   MinBlocks: 6
-  MaxBlocks: 13
-  LongBlockChance: 0.3
+  MaxBlocks: 14
+  LongBlockChance: 0.35
   MaxLevelsPerCluster: 2
   MaxClusterStates: 300000
   MaxAttempts: 200000
