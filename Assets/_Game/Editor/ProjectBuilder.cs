@@ -21,6 +21,7 @@ namespace Blocktrotter.EditorTools
         public const string AdConfigPath = "Assets/_Game/Data/AdConfig.asset";
         public const string SoundConfigPath = "Assets/_Game/Data/SoundConfig.asset";
         public const string AudioFolder = "Assets/_Game/Audio/";
+        public const string AppIconPath = "Assets/_Game/Art/AppIcon.png";
         public const string ThemesFolder = "Assets/_Game/Data/Themes";
         public const string EnglishPath = "Assets/_Game/Data/Localization/en.txt";
         public const string TurkishPath = "Assets/_Game/Data/Localization/tr.txt";
@@ -67,6 +68,7 @@ namespace Blocktrotter.EditorTools
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };
 
             AdMobSettingsSetup.Configure();
+            SetAppIcon();
             PlayerSettings.productName = "Blocktrotter";
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
             AssetDatabase.SaveAssets();
@@ -231,6 +233,21 @@ namespace Blocktrotter.EditorTools
             config.SetEntries(entries);
             EditorUtility.SetDirty(config);
             return config;
+        }
+
+        /// <summary>
+        /// Uses Assets/_Game/Art/AppIcon.png (1024 px, no alpha; drawn by tools/make_icon.py) as the
+        /// default icon, which Unity scales for every platform and size.
+        /// </summary>
+        private static void SetAppIcon()
+        {
+            var icon = AssetDatabase.LoadAssetAtPath<Texture2D>(AppIconPath);
+            if (icon == null)
+            {
+                Debug.LogWarning($"[ProjectBuilder] {AppIconPath} not found; app icon unchanged.");
+                return;
+            }
+            PlayerSettings.SetIcons(UnityEditor.Build.NamedBuildTarget.Unknown, new[] { icon }, IconKind.Any);
         }
 
         private static T LoadOrCreate<T>(string path) where T : ScriptableObject
