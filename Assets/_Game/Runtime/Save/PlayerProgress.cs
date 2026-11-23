@@ -35,6 +35,9 @@ namespace Blocktrotter.Save
         /// <summary>Sound effects on/off.</summary>
         public bool SoundOn = true;
 
+        /// <summary>True once the guided first puzzle was finished or skipped.</summary>
+        public bool TutorialDone;
+
         /// <summary>New progress for a game with <paramref name="levelCount"/> levels.</summary>
         public static PlayerProgress Create(int levelCount, int startingHints)
         {

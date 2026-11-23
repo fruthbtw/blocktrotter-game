@@ -18,7 +18,7 @@ namespace Blocktrotter.AppShell
     /// saved progress, hints) and switches between screens. One instance lives in
     /// the Game scene.
     /// Launch arguments for run-and-observe captures:
-    /// <c>--screen menu|worlds|levels|settings|unlocked</c>, <c>--world N</c> (1-based),
+    /// <c>--screen menu|worlds|levels|settings|unlocked|tutorial|howto</c>, <c>--world N</c> (1-based),
     /// <c>--level N</c> (1-based, opens the game screen), <c>--lang en|tr</c>,
     /// <c>--demo-progress N</c> (pretend the first N levels are solved; not saved), <c>--hints N</c> (with demo progress),
     /// <c>--no-ads</c>.
@@ -128,6 +128,9 @@ namespace Blocktrotter.AppShell
 
         /// <summary>Celebrates a newly unlocked world, then continues to its first level.</summary>
         public void ShowWorldUnlocked(int world) => Show(new WorldUnlockedScreen(world));
+
+        /// <summary>Opens the guided first puzzle (from Settings: no welcome card).</summary>
+        public void ShowTutorial(bool showWelcome = false) => Show(new TutorialScreen(showWelcome));
 
         /// <summary>Opens a level if it is unlocked.</summary>
         public void PlayLevel(int levelIndex)
@@ -241,7 +244,12 @@ namespace Blocktrotter.AppShell
                 case "levels": ShowLevels(world); break;
                 case "settings": ShowMainMenu(); OpenSettings(); break;
                 case "unlocked": ShowWorldUnlocked(world); break;
-                default: ShowMainMenu(); break;
+                case "tutorial": ShowTutorial(showWelcome: true); break;
+                case "howto": ShowTutorial(); break;
+                default:
+                    if (Progress.TutorialDone) ShowMainMenu();
+                    else ShowTutorial(showWelcome: true);   // first launch
+                    break;
             }
         }
 
@@ -250,6 +258,7 @@ namespace Blocktrotter.AppShell
             if (!int.TryParse(Arg("--demo-progress"), out int solved)) return;
             _saveEnabled = false;   // a capture must never overwrite real progress
             Progress = PlayerProgress.Create(_levels.Count, _config.StartingHints);
+            Progress.TutorialDone = true;   // captures go straight to the requested screen
             for (int i = 0; i < Mathf.Min(solved, _levels.Count); i++)
                 Progress.RecordSolve(i, 1 + i % 3);
             Hints = new HintWallet(int.TryParse(Arg("--hints"), out int hints) ? hints : Progress.Hints);

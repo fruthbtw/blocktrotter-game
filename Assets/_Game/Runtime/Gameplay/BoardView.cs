@@ -90,12 +90,34 @@ namespace Blocktrotter.Gameplay
             Sync(board, snap: true);
         }
 
+        /// <summary>
+        /// Tutorial focus: only this block can be dragged and the others are dimmed.
+        /// -1 (the default) means every block is active.
+        /// </summary>
+        public int FocusBlock
+        {
+            get => _focus;
+            set
+            {
+                _focus = value;
+                if (_board != null) Sync(_board);
+            }
+        }
+
+        private int _focus = -1;
+
+        /// <summary>Screen rectangle of a block view (for pointers drawn over the board).</summary>
+        public RectTransform BlockRect(int index) => (RectTransform)_blocks[index].transform;
+
+        /// <summary>Width of one board cell in the board's local units.</summary>
+        public float CellSize => Cell;
+
         /// <summary>Moves every block view to match <paramref name="board"/>.</summary>
         public void Sync(Board board, bool snap = false)
         {
             _board = board;
             for (int i = 0; i < _blocks.Count; i++)
-                _blocks[i].SetTarget(CellPosition(board.Blocks[i]), snap);
+                _blocks[i].SetTarget(CellPosition(board.Blocks[i]), snap, _focus < 0 || _focus == i ? 1f : 0.35f);
         }
 
         /// <summary>Plays the red block's exit, then calls <paramref name="onDone"/>.</summary>
@@ -186,6 +208,7 @@ namespace Blocktrotter.Gameplay
         internal void BeginDrag(BlockView view, PointerEventData e)
         {
             if (InputLocked || _active != null || _board.IsSolved) return;
+            if (_focus >= 0 && view.Index != _focus) return;
             if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(_rt, e.position, e.pressEventCamera, out _dragStartLocal)) return;
             _active = view;
             _activePointer = e.pointerId;
