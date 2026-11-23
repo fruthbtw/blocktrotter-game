@@ -100,6 +100,7 @@ namespace Blocktrotter.AppShell
             Loc = new Localizer(_stringTables);
             string lang = Arg("--lang") ?? Progress.Language;
             Loc.SetLanguage(string.IsNullOrEmpty(lang) ? Localizer.DetectLanguage() : lang);
+            UI.UiFactory.SetLanguage(Loc.Language);
 
             Sound = gameObject.AddComponent<SoundPlayer>();
             Sound.Init(_sounds, () => Progress.SoundOn);
@@ -156,6 +157,7 @@ namespace Blocktrotter.AppShell
         public void SetLanguage(string code)
         {
             Loc.SetLanguage(code);
+            UI.UiFactory.SetLanguage(Loc.Language);
             Progress.Language = Loc.Language;
             SaveProgress();
             _current.Rebuild();

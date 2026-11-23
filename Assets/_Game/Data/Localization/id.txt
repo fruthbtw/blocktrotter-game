@@ -49,6 +49,7 @@ settings.privacy_policy=Kebijakan Privasi
 settings.terms=Ketentuan Layanan
 settings.privacy_options=Opsi Privasi
 settings.how_to_play=Cara Bermain
+settings.contact=Hubungi Kami
 tutorial.welcome.title=Selamat datang di Blocktrotter!
 tutorial.welcome.body=Geser balok-balok yang menghalangi dan keluarkan balok merah lewat gerbang.
 tutorial.start=Mulai

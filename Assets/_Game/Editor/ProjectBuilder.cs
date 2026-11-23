@@ -81,7 +81,7 @@ namespace Blocktrotter.EditorTools
             PlayerSettings.SetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget.Android, BundleId);
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
             PlayerSettings.bundleVersion = "1.0";
-            PlayerSettings.iOS.buildNumber = "1";
+            PlayerSettings.iOS.buildNumber = "2";
             // iPhone only: no iPad screenshots or iPad review; iPads still run it in iPhone mode.
             PlayerSettings.iOS.targetDevice = iOSTargetDevice.iPhoneOnly;
             PlayerSettings.iOS.appleEnableAutomaticSigning = true;

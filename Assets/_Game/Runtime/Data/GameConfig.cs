@@ -81,6 +81,13 @@ namespace Blocktrotter.Data
         /// <summary>Terms of service URL for a language code ("en"/"tr").</summary>
         public string TermsUrl(string language) => LegalBaseUrl + (language == "tr" ? "terms-tr.html" : "terms.html");
 
+        [Tooltip("Address the Settings 'Contact Us' button opens in the mail app.")]
+        public string SupportEmail = "kayustudio.support@gmail.com";
+
+        /// <summary>mailto: link to <see cref="SupportEmail"/> with the game and version as the subject.</summary>
+        public string SupportMailto(string version) =>
+            "mailto:" + SupportEmail + "?subject=" + System.Uri.EscapeDataString("Blocktrotter " + version);
+
         [Header("Background decor")]
         [Tooltip("Drifting decor pieces (petals, snow, ...) on screen at once.")]
         [Min(0)] public int DecorParticleCount = 18;

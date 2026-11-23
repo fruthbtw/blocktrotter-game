@@ -49,6 +49,7 @@ settings.privacy_policy=Dasar Privasi
 settings.terms=Terma Perkhidmatan
 settings.privacy_options=Pilihan Privasi
 settings.how_to_play=Cara Bermain
+settings.contact=Hubungi Kami
 tutorial.welcome.title=Selamat datang ke Blocktrotter!
 tutorial.welcome.body=Gelongsorkan blok yang menghalang dan bawa blok merah keluar melalui pintu.
 tutorial.start=Mula

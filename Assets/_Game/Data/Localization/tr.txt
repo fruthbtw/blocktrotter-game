@@ -49,6 +49,7 @@ settings.privacy_policy=Gizlilik Politikası
 settings.terms=Hizmet Koşulları
 settings.privacy_options=Gizlilik Seçenekleri
 settings.how_to_play=Nasıl Oynanır
+settings.contact=Bize Ulaşın
 tutorial.welcome.title=Blocktrotter'a hoş geldin!
 tutorial.welcome.body=Blokları kenara kaydır, kırmızı bloğu kapıdan çıkar.
 tutorial.start=Başla

@@ -17,9 +17,39 @@ namespace Blocktrotter.UI
     public static class UiFactory
     {
         private static Font _font;
+        private static Font _thaiFont;
+        private static bool _thaiLanguage;
 
         /// <summary>Built-in font; dynamic, so Turkish characters fall back to OS glyphs.</summary>
-        public static Font DefaultFont => _font != null ? _font : (_font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf"));
+        public static Font BuiltinFont => _font != null ? _font : (_font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf"));
+
+        /// <summary>
+        /// Bundled Noto Sans Thai (Resources/Fonts, SIL OFL). The OS fallback of the built-in font
+        /// draws Thai blank or with dotted circles on iOS, so Thai text always uses this font;
+        /// Latin letters and digits it lacks fall back to Arial via the font's import settings.
+        /// </summary>
+        public static Font ThaiFont
+        {
+            get
+            {
+                if (_thaiFont == null) _thaiFont = Resources.Load<Font>("Fonts/NotoSansThai-Regular");
+                return _thaiFont != null ? _thaiFont : BuiltinFont;
+            }
+        }
+
+        /// <summary>Font for new labels in the current language.</summary>
+        public static Font DefaultFont => _thaiLanguage ? ThaiFont : BuiltinFont;
+
+        /// <summary>Call when the game language changes, before screens rebuild.</summary>
+        public static void SetLanguage(string code) => _thaiLanguage = code == "th";
+
+        private static bool ContainsThai(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return false;
+            foreach (char c in text)
+                if (c >= '฀' && c <= '๿') return true;
+            return false;
+        }
 
         /// <summary>Empty RectTransform centred on its parent at <paramref name="position"/>.</summary>
         public static RectTransform Rect(string name, Transform parent, Vector2 position, Vector2 size)
@@ -71,7 +101,7 @@ namespace Blocktrotter.UI
         {
             RectTransform rt = Stretch("Label", parent);
             var label = rt.gameObject.AddComponent<Text>();
-            label.font = DefaultFont;
+            label.font = ContainsThai(text) ? ThaiFont : DefaultFont;   // e.g. "ไทย" in the language picker
             label.text = text;
             label.fontSize = fontSize;
             label.fontStyle = style;
@@ -127,12 +157,42 @@ namespace Blocktrotter.UI
             Sprite icon, float iconSize, Color background, Color iconColor, UnityAction onClick, bool tapSound = true)
         {
             RectTransform rt = Rect(name, parent, position, size);
-            Image image = Image(rt, background, raycast: true);
-            var button = rt.gameObject.AddComponent<Button>();
-            button.targetGraphic = image;
+            Button button = PressableBody(rt, background, out RectTransform face);
             button.onClick.AddListener(onClick);
             if (tapSound) AddClickFeedback(button);   // off for buttons whose action has its own sound
-            Image(Rect("Icon", rt, Vector2.zero, Vector2.one * iconSize), iconColor, icon);
+            Image(Rect("Icon", face, Vector2.zero, Vector2.one * iconSize), iconColor, icon);
+            return button;
+        }
+
+        /// <summary>
+        /// Builds the raised look shared by factory buttons on <paramref name="rt"/>: a darker
+        /// rounded "lip" underneath, the coloured face on top with a soft highlight band, and
+        /// <see cref="PressableButton"/> to sink the face while pressed. Content goes on <paramref name="face"/>.
+        /// </summary>
+        private static Button PressableBody(RectTransform rt, Color background, out RectTransform face)
+        {
+            float lipDepth = Mathf.Clamp(rt.sizeDelta.y * 0.09f, 10f, 18f);
+
+            RectTransform lipRt = Stretch("Lip", rt);
+            Image lip = Image(lipRt, Color.Lerp(background, Color.black, 0.32f));
+
+            face = Stretch("Face", rt);
+            Image faceImage = Image(face, background, raycast: true);
+
+            // Gloss: a faint lighter band along the top of the face.
+            RectTransform glossRt = Stretch("Gloss", face);
+            glossRt.anchorMin = new Vector2(0f, 0.6f);
+            glossRt.offsetMin = new Vector2(12f, 0f);
+            glossRt.offsetMax = new Vector2(-12f, -6f);
+            Image gloss = Image(glossRt, new Color(1f, 1f, 1f, 0.07f));
+
+            var button = rt.gameObject.AddComponent<Button>();
+            button.targetGraphic = faceImage;
+            ColorBlock colors = button.colors;
+            colors.pressedColor = new Color(0.92f, 0.92f, 0.92f, 1f);   // the sink does most of the work
+            button.colors = colors;
+
+            rt.gameObject.AddComponent<PressableButton>().Init(button, face, lip, gloss, lipDepth);
             return button;
         }
 
@@ -151,12 +211,13 @@ namespace Blocktrotter.UI
             string text, int fontSize, Color background, Color textColor, UnityAction onClick)
         {
             RectTransform rt = Rect(name, parent, position, size);
-            Image image = Image(rt, background, raycast: true);
-            var button = rt.gameObject.AddComponent<Button>();
-            button.targetGraphic = image;
+            Button button = PressableBody(rt, background, out RectTransform face);
             button.onClick.AddListener(onClick);
             AddClickFeedback(button);
-            Label(rt, text, fontSize, textColor);
+            Text label = Label(face, text, fontSize, textColor);
+            var shadow = label.gameObject.AddComponent<Shadow>();
+            shadow.effectColor = new Color(0f, 0f, 0f, 0.22f);
+            shadow.effectDistance = new Vector2(0f, -3f);
             return button;
         }
     }

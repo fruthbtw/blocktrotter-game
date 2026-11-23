@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Blocktrotter.Screens
 {
-    /// <summary>Panel over the current screen: language, sound, how to play, legal pages and (where required) privacy options.</summary>
+    /// <summary>Panel over the current screen: language, sound, how to play, legal pages, contact and (where required) privacy options.</summary>
     public sealed class SettingsOverlay : UiScreen
     {
         private readonly ThemeDefinition _theme;
@@ -27,9 +27,9 @@ namespace Blocktrotter.Screens
                 return;
             }
             bool privacyOptions = App.Ads.PrivacyOptionsRequired;
-            RectTransform panel = UiFactory.Rect("Panel", Root, Vector2.zero, new Vector2(860, privacyOptions ? 1450 : 1290));
+            RectTransform panel = UiFactory.Rect("Panel", Root, Vector2.zero, new Vector2(860, privacyOptions ? 1600 : 1440));
             UiFactory.Image(panel, Theme.PanelColor);
-            float top = privacyOptions ? 635 : 555;
+            float top = privacyOptions ? 710 : 630;
 
             RectTransform title = UiFactory.Rect("Title", panel, new Vector2(0, top), new Vector2(760, 110));
             UiFactory.Label(title, T("settings.title"), 68, Theme.TextColor);
@@ -47,8 +47,10 @@ namespace Blocktrotter.Screens
                 T("settings.privacy_policy"), 44, () => Application.OpenURL(App.Config.PrivacyUrl(lang)));
             ThemedButton("Terms", panel, new Vector2(0, top - 800), new Vector2(640, 130),
                 T("settings.terms"), 44, () => Application.OpenURL(App.Config.TermsUrl(lang)));
+            ThemedButton("Contact", panel, new Vector2(0, top - 950), new Vector2(640, 130),
+                T("settings.contact"), 44, () => Application.OpenURL(App.Config.SupportMailto(Application.version)));
             if (privacyOptions)
-                ThemedButton("PrivacyOptions", panel, new Vector2(0, top - 950), new Vector2(640, 130),
+                ThemedButton("PrivacyOptions", panel, new Vector2(0, top - 1100), new Vector2(640, 130),
                     T("settings.privacy_options"), 44, () => App.Ads.ShowPrivacyOptions(null));
 
             ThemedButton("Close", panel, new Vector2(0, -top + 100), new Vector2(640, 140),

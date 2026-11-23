@@ -49,6 +49,7 @@ settings.privacy_policy=Privacy Policy
 settings.terms=Terms of Service
 settings.privacy_options=Privacy Options
 settings.how_to_play=How to Play
+settings.contact=Contact Us
 tutorial.welcome.title=Welcome to Blocktrotter!
 tutorial.welcome.body=Slide the blocks out of the way and get the red block out through the gate.
 tutorial.start=Start

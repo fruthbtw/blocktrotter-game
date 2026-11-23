@@ -49,6 +49,7 @@ settings.privacy_policy=Chính sách quyền riêng tư
 settings.terms=Điều khoản dịch vụ
 settings.privacy_options=Tùy chọn quyền riêng tư
 settings.how_to_play=Cách chơi
+settings.contact=Liên hệ
 tutorial.welcome.title=Chào mừng đến với Blocktrotter!
 tutorial.welcome.body=Trượt các khối chắn đường và đưa khối đỏ ra khỏi cổng.
 tutorial.start=Bắt đầu

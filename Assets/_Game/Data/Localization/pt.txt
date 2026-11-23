@@ -49,6 +49,7 @@ settings.privacy_policy=Política de Privacidade
 settings.terms=Termos de Serviço
 settings.privacy_options=Opções de privacidade
 settings.how_to_play=Como jogar
+settings.contact=Fale conosco
 tutorial.welcome.title=Bem-vindo ao Blocktrotter!
 tutorial.welcome.body=Tire os blocos do caminho e leve o bloco vermelho até a saída.
 tutorial.start=Começar

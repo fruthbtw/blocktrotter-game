@@ -49,6 +49,7 @@ settings.privacy_policy=นโยบายความเป็นส่วน�
 settings.terms=ข้อกำหนดการให้บริการ
 settings.privacy_options=ตัวเลือกความเป็นส่วนตัว
 settings.how_to_play=วิธีเล่น
+settings.contact=ติดต่อเรา
 tutorial.welcome.title=ยินดีต้อนรับสู่ Blocktrotter!
 tutorial.welcome.body=เลื่อนบล็อกที่ขวางทางออกไป แล้วพาบล็อกสีแดงออกทางประตู
 tutorial.start=เริ่ม
