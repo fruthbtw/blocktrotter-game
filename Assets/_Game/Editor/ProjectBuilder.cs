@@ -30,6 +30,7 @@ namespace Blocktrotter.EditorTools
         /// <summary>iOS bundle ID and Android package name, registered with AdMob by Kayu Studio.</summary>
         public const string BundleId = "com.kayustudio.blocktrotter";
         public const string WindowsBuildPath = "Builds/Win64/Blocktrotter.exe";
+        public const string IosBuildPath = "Builds/iOS";
 
         [MenuItem("Blocktrotter/Build Game Scene")]
         public static void BuildGameScene()
@@ -79,6 +80,11 @@ namespace Blocktrotter.EditorTools
             PlayerSettings.SetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget.iOS, BundleId);
             PlayerSettings.SetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget.Android, BundleId);
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
+            PlayerSettings.bundleVersion = "1.0";
+            PlayerSettings.iOS.buildNumber = "1";
+            // iPhone only: no iPad screenshots or iPad review; iPads still run it in iPhone mode.
+            PlayerSettings.iOS.targetDevice = iOSTargetDevice.iPhoneOnly;
+            PlayerSettings.iOS.appleEnableAutomaticSigning = true;
             AssetDatabase.SaveAssets();
             Debug.Log($"[ProjectBuilder] Scene saved to {ScenePath} (levels: {(levels != null ? levels.Count : 0)})");
         }
@@ -112,6 +118,26 @@ namespace Blocktrotter.EditorTools
         public static void BuildWindowsBatch()
         {
             EditorApplication.Exit(BuildWindows() ? 0 : 1);
+        }
+
+        /// <summary>Exports the release Xcode project to <see cref="IosBuildPath"/> (open it on a Mac to archive and upload).</summary>
+        [MenuItem("Blocktrotter/Build iOS Xcode Project")]
+        public static bool BuildIos()
+        {
+            BuildReport report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
+            {
+                scenes = new[] { ScenePath },
+                locationPathName = IosBuildPath,
+                target = BuildTarget.iOS,
+                options = BuildOptions.None
+            });
+            Debug.Log($"[ProjectBuilder] iOS build: {report.summary.result}, {report.summary.totalErrors} errors");
+            return report.summary.result == BuildResult.Succeeded;
+        }
+
+        public static void BuildIosBatch()
+        {
+            EditorApplication.Exit(BuildIos() ? 0 : 1);
         }
 
         /// <summary>
