@@ -1,5 +1,7 @@
+using System;
 using System.IO;
 using Blocktrotter.Data;
+using Blocktrotter.Localization;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEditor.SceneManagement;
@@ -23,8 +25,7 @@ namespace Blocktrotter.EditorTools
         public const string AudioFolder = "Assets/_Game/Audio/";
         public const string AppIconPath = "Assets/_Game/Art/AppIcon.png";
         public const string ThemesFolder = "Assets/_Game/Data/Themes";
-        public const string EnglishPath = "Assets/_Game/Data/Localization/en.txt";
-        public const string TurkishPath = "Assets/_Game/Data/Localization/tr.txt";
+        public const string LocalizationFolder = "Assets/_Game/Data/Localization/";
         public const string WindowsBuildPath = "Builds/Win64/Blocktrotter.exe";
 
         [MenuItem("Blocktrotter/Build Game Scene")]
@@ -40,8 +41,8 @@ namespace Blocktrotter.EditorTools
             var sounds = BuildSoundConfig();
             ThemeDefinition[] themes = LoadOrCreateThemes();
             var levels = AssetDatabase.LoadAssetAtPath<LevelDatabase>(LevelGeneratorMenu.DatabasePath);
-            var en = AssetDatabase.LoadAssetAtPath<TextAsset>(EnglishPath);
-            var tr = AssetDatabase.LoadAssetAtPath<TextAsset>(TurkishPath);
+            TextAsset[] stringTables = Array.ConvertAll(Localizer.Supported,
+                code => AssetDatabase.LoadAssetAtPath<TextAsset>(LocalizationFolder + code + ".txt"));
 
             var cameraGo = new GameObject("Main Camera", typeof(Camera), typeof(AudioListener));
             cameraGo.tag = "MainCamera";
@@ -60,8 +61,10 @@ namespace Blocktrotter.EditorTools
             themeList.arraySize = themes.Length;
             for (int i = 0; i < themes.Length; i++)
                 themeList.GetArrayElementAtIndex(i).objectReferenceValue = themes[i];
-            so.FindProperty("_englishStrings").objectReferenceValue = en;
-            so.FindProperty("_turkishStrings").objectReferenceValue = tr;
+            SerializedProperty tableList = so.FindProperty("_stringTables");
+            tableList.arraySize = stringTables.Length;
+            for (int i = 0; i < stringTables.Length; i++)
+                tableList.GetArrayElementAtIndex(i).objectReferenceValue = stringTables[i];
             so.ApplyModifiedPropertiesWithoutUndo();
 
             EditorSceneManager.SaveScene(scene, ScenePath);

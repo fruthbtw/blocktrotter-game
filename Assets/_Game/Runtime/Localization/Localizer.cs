@@ -11,7 +11,7 @@ namespace Blocktrotter.Localization
     /// </summary>
     /// <example>
     /// <code>
-    /// var loc = new Localizer(enTable, trTable);
+    /// var loc = new Localizer(tables);           // TextAssets named "en", "tr", ...
     /// loc.SetLanguage(Localizer.DetectLanguage());
     /// label.text = loc.Get("game.level", 12);   // "Level 12" / "Bölüm 12"
     /// </code>
@@ -24,26 +24,55 @@ namespace Blocktrotter.Localization
         /// <summary>Turkish language code.</summary>
         public const string Turkish = "tr";
 
+        /// <summary>Every language the game ships, in the order the language picker lists them.</summary>
+        public static readonly string[] Supported = { "en", "tr", "es", "pt", "id", "ms", "vi", "th" };
+
         private readonly Dictionary<string, Dictionary<string, string>> _tables = new Dictionary<string, Dictionary<string, string>>();
+        private readonly List<string> _languages = new List<string>();
         private Dictionary<string, string> _current;
 
         /// <summary>Active language code.</summary>
         public string Language { get; private set; }
 
+        /// <summary>Loaded language codes, in <see cref="Supported"/> order.</summary>
+        public IReadOnlyList<string> Languages => _languages;
+
         /// <summary>Raised after the language changes, so screens can refresh text.</summary>
         public event Action OnLanguageChanged;
 
-        /// <summary>Creates a localizer from English and Turkish tables; English is active.</summary>
-        public Localizer(TextAsset english, TextAsset turkish)
+        /// <summary>
+        /// Creates a localizer from string tables whose asset names are language codes ("en", "tr"...).
+        /// English must be among them; it is active until <see cref="SetLanguage"/> is called.
+        /// </summary>
+        public Localizer(IEnumerable<TextAsset> tables)
         {
-            _tables[English] = Parse(english.text);
-            _tables[Turkish] = Parse(turkish.text);
+            foreach (TextAsset table in tables)
+                if (table != null) _tables[table.name] = Parse(table.text);
+            if (!_tables.ContainsKey(English))
+                throw new ArgumentException("An English (\"en\") string table is required.", nameof(tables));
+            foreach (string code in Supported)
+                if (_tables.ContainsKey(code)) _languages.Add(code);
             SetLanguage(English);
         }
 
-        /// <summary>"tr" on a Turkish device, otherwise "en".</summary>
-        public static string DetectLanguage() =>
-            Application.systemLanguage == SystemLanguage.Turkish ? Turkish : English;
+        /// <summary>The device language if the game supports it, otherwise "en".</summary>
+        public static string DetectLanguage() => DetectLanguage(Application.systemLanguage);
+
+        /// <summary>Maps a device language to a supported code; anything else is "en". Malay has no
+        /// <see cref="SystemLanguage"/> value, so Malay players pick it in Settings.</summary>
+        public static string DetectLanguage(SystemLanguage system)
+        {
+            switch (system)
+            {
+                case SystemLanguage.Turkish: return Turkish;
+                case SystemLanguage.Spanish: return "es";
+                case SystemLanguage.Portuguese: return "pt";
+                case SystemLanguage.Indonesian: return "id";
+                case SystemLanguage.Vietnamese: return "vi";
+                case SystemLanguage.Thai: return "th";
+                default: return English;
+            }
+        }
 
         /// <summary>Switches language; unknown codes fall back to English.</summary>
         public void SetLanguage(string code)

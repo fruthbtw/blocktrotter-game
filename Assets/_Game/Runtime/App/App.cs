@@ -18,8 +18,8 @@ namespace Blocktrotter.AppShell
     /// saved progress, hints) and switches between screens. One instance lives in
     /// the Game scene.
     /// Launch arguments for run-and-observe captures:
-    /// <c>--screen menu|worlds|levels|settings|unlocked|tutorial|howto</c>, <c>--world N</c> (1-based),
-    /// <c>--level N</c> (1-based, opens the game screen), <c>--lang en|tr</c>,
+    /// <c>--screen menu|worlds|levels|settings|languages|unlocked|tutorial|howto</c>, <c>--world N</c> (1-based),
+    /// <c>--level N</c> (1-based, opens the game screen), <c>--lang en|tr|es|pt|id|ms|vi|th</c>,
     /// <c>--demo-progress N</c> (pretend the first N levels are solved; not saved), <c>--hints N</c> (with demo progress),
     /// <c>--no-ads</c>.
     /// </summary>
@@ -32,8 +32,7 @@ namespace Blocktrotter.AppShell
         [SerializeField] private ThemeDefinition[] _themes;
         [SerializeField] private AdConfig _adConfig;
         [SerializeField] private SoundConfig _sounds;
-        [SerializeField] private TextAsset _englishStrings;
-        [SerializeField] private TextAsset _turkishStrings;
+        [SerializeField] private TextAsset[] _stringTables;
 
         private IProgressStore _store;
         private bool _saveEnabled = true;
@@ -98,7 +97,7 @@ namespace Blocktrotter.AppShell
             Hints = new HintWallet(Progress.Hints);
             ApplyDemoProgress();
 
-            Loc = new Localizer(_englishStrings, _turkishStrings);
+            Loc = new Localizer(_stringTables);
             string lang = Arg("--lang") ?? Progress.Language;
             Loc.SetLanguage(string.IsNullOrEmpty(lang) ? Localizer.DetectLanguage() : lang);
 
@@ -243,6 +242,7 @@ namespace Blocktrotter.AppShell
                 case "worlds": ShowWorlds(); break;
                 case "levels": ShowLevels(world); break;
                 case "settings": ShowMainMenu(); OpenSettings(); break;
+                case "languages": ShowMainMenu(); OpenSettings(); ((SettingsOverlay)_overlay).ShowLanguagePicker(true); break;
                 case "unlocked": ShowWorldUnlocked(world); break;
                 case "tutorial": ShowTutorial(showWelcome: true); break;
                 case "howto": ShowTutorial(); break;

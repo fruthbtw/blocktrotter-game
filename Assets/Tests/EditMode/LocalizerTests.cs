@@ -9,8 +9,13 @@ namespace Blocktrotter.Tests
 {
     public class LocalizerTests
     {
-        private const string EnglishPath = "Assets/_Game/Data/Localization/en.txt";
-        private const string TurkishPath = "Assets/_Game/Data/Localization/tr.txt";
+        private const string Folder = "Assets/_Game/Data/Localization/";
+
+        private static IEnumerable<string> AllCodes => Localizer.Supported;
+
+        private static TextAsset Table(string code) => AssetDatabase.LoadAssetAtPath<TextAsset>(Folder + code + ".txt");
+
+        private static Localizer LoadAll() => new Localizer(Localizer.Supported.Select(Table));
 
         [Test]
         public void Parse_ReadsKeysSkipsCommentsAndUnescapesNewlines()
@@ -22,41 +27,83 @@ namespace Blocktrotter.Tests
             Assert.AreEqual("Line1\nLine2", table["c"]);
         }
 
-        [TestCase(EnglishPath)]
-        [TestCase(TurkishPath)]
-        public void StringTable_EveryLineIsCommentBlankOrKeyValue(string path)
+        [TestCaseSource(nameof(AllCodes))]
+        public void StringTable_EveryLineIsCommentBlankOrKeyValue(string code)
         {
             // Regression: a literal newline inside a value split it into an orphan line that Parse silently dropped.
-            string[] lines = AssetDatabase.LoadAssetAtPath<TextAsset>(path).text.Split('\n');
+            Assert.IsNotNull(Table(code), $"{code}.txt is missing");
+            string[] lines = Table(code).text.Split('\n');
 
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i].TrimEnd('\r');
                 if (line.Length == 0 || line[0] == '#') continue;
-                Assert.Greater(line.IndexOf('='), 0, $"{path} line {i + 1} is not key=value: \"{line}\"");
+                Assert.Greater(line.IndexOf('='), 0, $"{code}.txt line {i + 1} is not key=value: \"{line}\"");
             }
         }
 
-        [Test]
-        public void EnglishAndTurkish_HaveTheSameKeys()
+        [TestCaseSource(nameof(AllCodes))]
+        public void StringTable_HasExactlyTheEnglishKeys(string code)
         {
-            var en = Localizer.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(EnglishPath).text);
-            var tr = Localizer.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(TurkishPath).text);
+            var en = Localizer.Parse(Table(Localizer.English).text);
+            var other = Localizer.Parse(Table(code).text);
 
-            CollectionAssert.AreEquivalent(en.Keys.ToList(), tr.Keys.ToList());
+            CollectionAssert.AreEquivalent(en.Keys.ToList(), other.Keys.ToList(), $"{code}.txt keys differ from en.txt");
+        }
+
+        [TestCaseSource(nameof(AllCodes))]
+        public void StringTable_KeepsTheEnglishPlaceholders(string code)
+        {
+            // A translation that drops or renumbers {0}/{1} shows wrong numbers or throws in string.Format.
+            var en = Localizer.Parse(Table(Localizer.English).text);
+            var other = Localizer.Parse(Table(code).text);
+
+            foreach (var pair in en)
+                for (int i = 0; i < 4; i++)
+                {
+                    string slot = "{" + i + "}";
+                    Assert.AreEqual(pair.Value.Contains(slot), other[pair.Key].Contains(slot), $"{code}.txt {pair.Key}: {slot}");
+                }
         }
 
         [Test]
         public void Get_FormatsArgumentsAndFallsBackToKey()
         {
-            var loc = new Localizer(
-                AssetDatabase.LoadAssetAtPath<TextAsset>(EnglishPath),
-                AssetDatabase.LoadAssetAtPath<TextAsset>(TurkishPath));
+            var loc = LoadAll();
 
             loc.SetLanguage(Localizer.Turkish);
 
             Assert.AreEqual("Bölüm 7", loc.Get("game.level", 7));
             Assert.AreEqual("missing.key", loc.Get("missing.key"));
+        }
+
+        [Test]
+        public void Languages_ListsEveryTableInPickerOrder()
+        {
+            CollectionAssert.AreEqual(Localizer.Supported, LoadAll().Languages);
+        }
+
+        [Test]
+        public void SetLanguage_UnknownCodeFallsBackToEnglish()
+        {
+            var loc = LoadAll();
+
+            loc.SetLanguage("xx");
+
+            Assert.AreEqual(Localizer.English, loc.Language);
+        }
+
+        [TestCase(SystemLanguage.Turkish, "tr")]
+        [TestCase(SystemLanguage.Spanish, "es")]
+        [TestCase(SystemLanguage.Portuguese, "pt")]
+        [TestCase(SystemLanguage.Indonesian, "id")]
+        [TestCase(SystemLanguage.Vietnamese, "vi")]
+        [TestCase(SystemLanguage.Thai, "th")]
+        [TestCase(SystemLanguage.German, "en")]
+        [TestCase(SystemLanguage.English, "en")]
+        public void DetectLanguage_MapsDeviceLanguage(SystemLanguage system, string expected)
+        {
+            Assert.AreEqual(expected, Localizer.DetectLanguage(system));
         }
     }
 }
