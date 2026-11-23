@@ -26,6 +26,9 @@ namespace Blocktrotter.EditorTools
         public const string AppIconPath = "Assets/_Game/Art/AppIcon.png";
         public const string ThemesFolder = "Assets/_Game/Data/Themes";
         public const string LocalizationFolder = "Assets/_Game/Data/Localization/";
+
+        /// <summary>iOS bundle ID and Android package name, registered with AdMob by Kayu Studio.</summary>
+        public const string BundleId = "com.kayustudio.blocktrotter";
         public const string WindowsBuildPath = "Builds/Win64/Blocktrotter.exe";
 
         [MenuItem("Blocktrotter/Build Game Scene")]
@@ -73,6 +76,8 @@ namespace Blocktrotter.EditorTools
             AdMobSettingsSetup.Configure();
             SetAppIcon();
             PlayerSettings.productName = "Blocktrotter";
+            PlayerSettings.SetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget.iOS, BundleId);
+            PlayerSettings.SetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget.Android, BundleId);
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
             AssetDatabase.SaveAssets();
             Debug.Log($"[ProjectBuilder] Scene saved to {ScenePath} (levels: {(levels != null ? levels.Count : 0)})");

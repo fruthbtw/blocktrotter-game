@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: AdConfig
   m_EditorClassIdentifier: Blocktrotter.Game::Blocktrotter.Ads.AdConfig
   AdsEnabled: 1
-  IosBannerId: ca-app-pub-3940256099942544/2934735716
-  IosInterstitialId: ca-app-pub-3940256099942544/4411468910
-  IosRewardedId: ca-app-pub-3940256099942544/1712485313
-  AndroidBannerId: ca-app-pub-3940256099942544/6300978111
-  AndroidInterstitialId: ca-app-pub-3940256099942544/1033173712
-  AndroidRewardedId: ca-app-pub-3940256099942544/5224354917
+  IosBannerId: ca-app-pub-8655761428673093/5255350500
+  IosInterstitialId: ca-app-pub-8655761428673093/2549296113
+  IosRewardedId: ca-app-pub-8655761428673093/3389615390
+  AndroidBannerId: ca-app-pub-8655761428673093/2644791196
+  AndroidInterstitialId: ca-app-pub-8655761428673093/9110835032
+  AndroidRewardedId: ca-app-pub-8655761428673093/2515517427
