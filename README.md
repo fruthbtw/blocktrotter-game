@@ -16,6 +16,7 @@ in English and Turkish.
 - **500 original levels**, generated and verified by the game's own solver — from 5 moves to 20, and every one needs real planning: no level can be solved by just pushing each block out of the red one's way.
 - **5 worlds**, one every 100 levels: Japanese Garden, Egyptian Desert, Tropical Island, Arctic Glaciers, Neon City — each with its own blocks (bamboo, carved sandstone, sea glass, ice, neon circuitry), its own red block, palette and animated background (falling petals, pyramids, waves, snow, a neon skyline).
 - **1–3 stars** per level based on moves versus the optimal solution; unlocks, best stars and hints are saved on the device.
+- **A guided tutorial** on first launch (replayable from Settings) that teaches the rules — and the key idea that sometimes you must move another block first.
 - **Hints** that play the next optimal move, **undo** and **restart**.
 - **A red block with personality**: a light sweeps across it while you play; when the way is clear it winds up, dashes out with a stretch and a trail, and the exit gate flashes as it passes.
 - **Celebration**: confetti, a pop-in "Puzzle solved" panel with stars ringing in one by one, and a "New world unlocked!" screen.
@@ -34,7 +35,7 @@ in English and Turkish.
 | **Look & feel** | `BlockSkins` paints every block face once per theme, size and orientation (texture sampling with mips, rounded corners, bevel light, per-style accents); `BoardView` drives the red block's wind-up/dash/trail exit and the gate; `SoundPlayer` mixes effects on a small voice pool. |
 | **Data-driven tuning** | `GameConfig`, `ThemeDefinition` ×5, `SoundConfig`, `AdConfig`, `LevelDatabase` ScriptableObjects — gameplay, feel, art and volume live in assets, not code. |
 | **Ads** | `IAdService` with an editor stand-in; the AdMob implementation sits in an optional assembly that compiles only when the Google Mobile Ads package is installed. |
-| **Tests** (`Assets/Tests/EditMode`) | 75 NUnit tests: board rules, solver, difficulty metric, generator determinism, every one of the 500 levels solved, replayed and checked for a detour, progress saving, ad pacing, localization tables, every sound wired. |
+| **Tests** (`Assets/Tests/EditMode`) | 79 NUnit tests: board rules, solver, tutorial script, difficulty metric, generator determinism, every one of the 500 levels solved, replayed and checked for a detour, progress saving, ad pacing, localization tables, every sound wired. |
 
 <p align="center">
   <img src="docs/screenshots/world-desert.png" width="200" alt="Egyptian Desert: carved sandstone blocks">
