@@ -35,7 +35,7 @@ in 8 languages.
 | **Look & feel** | `BlockSkins` paints every block face once per theme, size and orientation (texture sampling with mips, rounded corners, bevel light, per-style accents); `BoardView` drives the red block's wind-up/dash/trail exit and the gate; `SoundPlayer` mixes effects on a small voice pool. |
 | **Data-driven tuning** | `GameConfig`, `ThemeDefinition` ×5, `SoundConfig`, `AdConfig`, `LevelDatabase` ScriptableObjects — gameplay, feel, art and volume live in assets, not code. |
 | **Ads** | `IAdService` with an editor stand-in; the AdMob implementation sits in an optional assembly that compiles only when the Google Mobile Ads package is installed. |
-| **Tests** (`Assets/Tests/EditMode`) | 110 NUnit tests: board rules, solver, tutorial script, difficulty metric, generator determinism, every one of the 500 levels solved, replayed and checked for a detour, progress saving, ad pacing, every language table has the same keys and placeholders, every sound wired. |
+| **Tests** (`Assets/Tests/EditMode`) | 113 NUnit tests: board rules, solver, tutorial script, difficulty metric, generator determinism, every one of the 500 levels solved, replayed and checked for a detour, progress saving, ad pacing and ad unit IDs, every language table has the same keys and placeholders, every sound wired. |
 
 <p align="center">
   <img src="docs/screenshots/world-desert.png" width="200" alt="Egyptian Desert: carved sandstone blocks">
