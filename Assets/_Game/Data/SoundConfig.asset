@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6a5c8f78c3543b439894f625e5ca261, type: 3}
+  m_Name: SoundConfig
+  m_EditorClassIdentifier: Blocktrotter.Game::Blocktrotter.Audio.SoundConfig
+  _entries:
+  - Sound: 0
+    Clip: {fileID: 8300000, guid: af4a891f943370349bbb060e51a1f511, type: 3}
+    Volume: 0.385
+    PitchJitter: 0.06
+  - Sound: 1
+    Clip: {fileID: 8300000, guid: 92ca591d4f0e77d46a5428a1b4ec6a03, type: 3}
+    Volume: 0.56
+    PitchJitter: 0
+  - Sound: 2
+    Clip: {fileID: 8300000, guid: 45786b9295350f44b95c187550b85cee, type: 3}
+    Volume: 0.49
+    PitchJitter: 0
+  - Sound: 3
+    Clip: {fileID: 8300000, guid: 9e15075a81a100149839acc19c7d373d, type: 3}
+    Volume: 0.49
+    PitchJitter: 0
+  - Sound: 4
+    Clip: {fileID: 8300000, guid: 57835d41021a26546bb8d483d588efdc, type: 3}
+    Volume: 0.49
+    PitchJitter: 0
+  - Sound: 5
+    Clip: {fileID: 8300000, guid: 863fb638beead0a4db9aeefea8dd2feb, type: 3}
+    Volume: 0.525
+    PitchJitter: 0
+  - Sound: 6
+    Clip: {fileID: 8300000, guid: 5837ae3cd7a7f184296861f6eaf31bee, type: 3}
+    Volume: 0.315
+    PitchJitter: 0.05
+  - Sound: 7
+    Clip: {fileID: 8300000, guid: 7a9c6d51f88697945b234f73b70852c7, type: 3}
+    Volume: 0.49
+    PitchJitter: 0
+  - Sound: 8
+    Clip: {fileID: 8300000, guid: 4d6834b895b8bcd4a990d146c23b3c46, type: 3}
+    Volume: 0.42
+    PitchJitter: 0.03
+  - Sound: 9
+    Clip: {fileID: 8300000, guid: 1b64a7845a0cda744b660bddb66395f2, type: 3}
+    Volume: 0.56
+    PitchJitter: 0

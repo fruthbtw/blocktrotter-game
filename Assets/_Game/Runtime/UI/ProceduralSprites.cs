@@ -16,6 +16,7 @@ namespace Blocktrotter.UI
         private static Sprite _circle;
         private static Sprite _star;
         private static Sprite _triangle;
+        private static Sprite _softGlow;
 
         /// <summary>White rounded rectangle with 9-slice borders; tint with Image.color.</summary>
         public static Sprite RoundedRect => _roundedRect != null ? _roundedRect : (_roundedRect = CreateRounded(RoundedSize, CornerRadius));
@@ -30,6 +31,9 @@ namespace Blocktrotter.UI
         public static Sprite Triangle => _triangle != null ? _triangle : (_triangle = CreatePolygon(64,
             new[] { new Vector2(0, 0), new Vector2(64, 0), new Vector2(32, 64) }, new Vector2(0.5f, 0f)));
 
+        /// <summary>White rounded rectangle whose edge fades out softly (9-sliced); used for glows.</summary>
+        public static Sprite SoftGlow => _softGlow != null ? _softGlow : (_softGlow = CreateSoftGlow(96, 40));
+
         /// <summary>Vertical gradient sprite (bottom to top).</summary>
         public static Sprite VerticalGradient(Color bottom, Color top)
         {
@@ -38,6 +42,25 @@ namespace Blocktrotter.UI
                 tex.SetPixel(0, y, Color.Lerp(bottom, top, y / 63f));
             tex.Apply();
             return Sprite.Create(tex, new Rect(0, 0, 1, 64), new Vector2(0.5f, 0.5f));
+        }
+
+        private static Sprite CreateSoftGlow(int size, int fade)
+        {
+            var tex = new Texture2D(size, size, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp };
+            var pixels = new Color32[size * size];
+            float inner = size / 2f - fade;
+            for (int y = 0; y < size; y++)
+                for (int x = 0; x < size; x++)
+                {
+                    float dx = Mathf.Max(Mathf.Abs(x + 0.5f - size / 2f) - inner, 0f);
+                    float dy = Mathf.Max(Mathf.Abs(y + 0.5f - size / 2f) - inner, 0f);
+                    float t = Mathf.Clamp01(1f - Mathf.Sqrt(dx * dx + dy * dy) / fade);
+                    pixels[y * size + x] = new Color32(255, 255, 255, (byte)(255 * t * t));
+                }
+            tex.SetPixels32(pixels);
+            tex.Apply();
+            return Sprite.Create(tex, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), 100f, 0,
+                SpriteMeshType.FullRect, new Vector4(fade, fade, fade, fade));
         }
 
         private static Sprite CreateStar(int size)

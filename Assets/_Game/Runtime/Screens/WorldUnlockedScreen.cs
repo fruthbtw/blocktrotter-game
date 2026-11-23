@@ -48,6 +48,7 @@ namespace Blocktrotter.Screens
         {
             yield return null;   // let layout settle
             if (Root == null) yield break;
+            App.Sound.Play(Audio.Sfx.WorldUnlocked);
             ConfettiBurst.Spawn(Root, new Vector2(0, -300), App.Config.ConfettiCount,
                 App.Config.ConfettiDuration * 1.3f, new[] { Theme.TargetColor, Theme.ExitColor, Theme.BlockColor, Theme.DecorColor });
         }

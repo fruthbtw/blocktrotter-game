@@ -42,6 +42,22 @@ namespace Blocktrotter.Data
         [Tooltip("Seconds between the target leaving the board and the solved panel (confetti plays meanwhile).")]
         [Min(0f)] public float SolvedPanelDelay = 0.9f;
 
+        [Header("Red block exit")]
+        [Tooltip("Seconds the red block pulls back before launching (anticipation).")]
+        [Min(0f)] public float ExitWindupSeconds = 0.14f;
+
+        [Tooltip("Seconds from launch until the red block is through the gate.")]
+        [Min(0.05f)] public float ExitLaunchSeconds = 0.34f;
+
+        [Tooltip("Seconds between trail copies left behind during the launch.")]
+        [Min(0.01f)] public float ExitTrailInterval = 0.03f;
+
+        [Tooltip("Seconds each trail copy takes to fade.")]
+        [Min(0.05f)] public float ExitTrailFade = 0.28f;
+
+        [Tooltip("Seconds between light sweeps across the red block while playing.")]
+        [Min(0.5f)] public float TargetShinePeriod = 4f;
+
         [Header("Celebration")]
         [Tooltip("Confetti pieces per solve.")]
         [Min(0)] public int ConfettiCount = 90;

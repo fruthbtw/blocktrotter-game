@@ -116,15 +116,22 @@ namespace Blocktrotter.UI
                 if (g != background) g.color = g.color * new Color(1f, 1f, 1f, contentAlpha);
         }
 
+        /// <summary>Raised on every button tap made through this factory (the app plays the tap sound).</summary>
+        public static System.Action ButtonClicked;
+
+        /// <summary>Makes a hand-built button raise <see cref="ButtonClicked"/> too.</summary>
+        public static void AddClickFeedback(Button button) => button.onClick.AddListener(() => ButtonClicked?.Invoke());
+
         /// <summary>Rounded button showing a centred icon instead of text.</summary>
         public static Button IconButton(string name, Transform parent, Vector2 position, Vector2 size,
-            Sprite icon, float iconSize, Color background, Color iconColor, UnityAction onClick)
+            Sprite icon, float iconSize, Color background, Color iconColor, UnityAction onClick, bool tapSound = true)
         {
             RectTransform rt = Rect(name, parent, position, size);
             Image image = Image(rt, background, raycast: true);
             var button = rt.gameObject.AddComponent<Button>();
             button.targetGraphic = image;
             button.onClick.AddListener(onClick);
+            if (tapSound) AddClickFeedback(button);   // off for buttons whose action has its own sound
             Image(Rect("Icon", rt, Vector2.zero, Vector2.one * iconSize), iconColor, icon);
             return button;
         }
@@ -148,6 +155,7 @@ namespace Blocktrotter.UI
             var button = rt.gameObject.AddComponent<Button>();
             button.targetGraphic = image;
             button.onClick.AddListener(onClick);
+            AddClickFeedback(button);
             Label(rt, text, fontSize, textColor);
             return button;
         }

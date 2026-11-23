@@ -1,4 +1,5 @@
 using Blocktrotter.Ads;
+using Blocktrotter.Audio;
 using Blocktrotter.Core;
 using Blocktrotter.Data;
 using Blocktrotter.Localization;
@@ -30,6 +31,7 @@ namespace Blocktrotter.AppShell
         [SerializeField] private GameConfig _config;
         [SerializeField] private ThemeDefinition[] _themes;
         [SerializeField] private AdConfig _adConfig;
+        [SerializeField] private SoundConfig _sounds;
         [SerializeField] private TextAsset _englishStrings;
         [SerializeField] private TextAsset _turkishStrings;
 
@@ -64,6 +66,9 @@ namespace Blocktrotter.AppShell
         /// <summary>Decides when interstitials are due.</summary>
         public AdPolicy AdPolicy { get; private set; }
 
+        /// <summary>Sound effects (silent when the Sound setting is off).</summary>
+        public SoundPlayer Sound { get; private set; }
+
         /// <summary>Number of worlds (themes).</summary>
         public int WorldCount => Mathf.CeilToInt((float)_levels.Count / _config.LevelsPerTheme);
 
@@ -79,6 +84,11 @@ namespace Blocktrotter.AppShell
         /// <summary>Theme for a world; wraps if there are more worlds than themes.</summary>
         public ThemeDefinition ThemeOfWorld(int world) => _themes[world % _themes.Length];
 
+        private void OnDestroy()
+        {
+            UiFactory.ButtonClicked = null;   // static hook must not outlive this app's sound player
+        }
+
         private void Start()
         {
             Application.targetFrameRate = 60;
@@ -91,6 +101,10 @@ namespace Blocktrotter.AppShell
             Loc = new Localizer(_englishStrings, _turkishStrings);
             string lang = Arg("--lang") ?? Progress.Language;
             Loc.SetLanguage(string.IsNullOrEmpty(lang) ? Localizer.DetectLanguage() : lang);
+
+            Sound = gameObject.AddComponent<SoundPlayer>();
+            Sound.Init(_sounds, () => Progress.SoundOn);
+            UiFactory.ButtonClicked = () => Sound.Play(Sfx.Button);
 
             EnsureEventSystem();
             BuildCanvas();

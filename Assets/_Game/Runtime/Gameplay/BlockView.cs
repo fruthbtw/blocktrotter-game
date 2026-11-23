@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Blocktrotter.Gameplay
 {
@@ -7,7 +8,7 @@ namespace Blocktrotter.Gameplay
     /// One block on screen. Forwards drag input to its <see cref="BoardView"/> and
     /// eases toward the position the board gives it. Holds no game state.
     /// </summary>
-    /// <example><code>blockView.Init(boardView, index); blockView.SetTarget(pos, snap: true);</code></example>
+    /// <example><code>blockView.Init(boardView, index, faceImage); blockView.SetTarget(pos, snap: true);</code></example>
     public sealed class BlockView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         private BoardView _board;
@@ -20,14 +21,18 @@ namespace Blocktrotter.Gameplay
         /// <summary>Index of this block in the board's block list.</summary>
         public int Index { get; private set; }
 
+        /// <summary>The block's skinned face image (copied for the exit trail).</summary>
+        public Image Face { get; private set; }
+
         /// <summary>True when the block has reached its target position.</summary>
         public bool AtTarget => (_rt.anchoredPosition - _target).sqrMagnitude < 0.25f;
 
-        /// <summary>Binds the view to its board and block index.</summary>
-        public void Init(BoardView board, int index)
+        /// <summary>Binds the view to its board, block index and face image.</summary>
+        public void Init(BoardView board, int index, Image face)
         {
             _board = board;
             Index = index;
+            Face = face;
             _rt = (RectTransform)transform;
             _group = gameObject.AddComponent<CanvasGroup>();
         }
@@ -49,6 +54,13 @@ namespace Blocktrotter.Gameplay
         {
             _dragging = true;
             _rt.anchoredPosition = position;
+        }
+
+        /// <summary>Sets opacity directly (used by the exit animation, which drives the block itself).</summary>
+        public void SetAlpha(float alpha)
+        {
+            _targetAlpha = alpha;
+            _group.alpha = alpha;
         }
 
         /// <summary>Ends finger-following; the block eases to its target again.</summary>

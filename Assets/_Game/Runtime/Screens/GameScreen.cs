@@ -1,5 +1,6 @@
 using System.Collections;
 using Blocktrotter.AppShell;
+using Blocktrotter.Audio;
 using Blocktrotter.Core;
 using Blocktrotter.Data;
 using Blocktrotter.Gameplay;
@@ -93,7 +94,10 @@ namespace Blocktrotter.Screens
         private void OnMoveRequested(Move move)
         {
             if (_session.TryMove(move))
+            {
+                App.Sound.Play(Sfx.BlockSnap);
                 AfterBoardChanged();
+            }
             else
                 _board.Sync(_session.Board);
         }
@@ -119,6 +123,7 @@ namespace Blocktrotter.Screens
         private IEnumerator Celebrate(int stars)
         {
             GameConfig cfg = App.Config;
+            App.Sound.Play(Sfx.LevelSolved);
             ConfettiBurst.Spawn(Root, new Vector2(0, BoardCenterY - BoardSize / 2f), cfg.ConfettiCount, cfg.ConfettiDuration,
                 new[] { Theme.TargetColor, Theme.ExitColor, Theme.BlockColor, Theme.DecorColor, Color.white });
             yield return new WaitForSecondsRealtime(cfg.SolvedPanelDelay);
@@ -134,6 +139,7 @@ namespace Blocktrotter.Screens
             {
                 yield return new WaitForSecondsRealtime(cfg.StarPopInterval);
                 _solvedStars[i].color = Theme.ExitColor;
+                App.Sound.Play(Sfx.Star1 + i);
                 _board.StartCoroutine(Pop((RectTransform)_solvedStars[i].transform, 0f, cfg.PanelPopDuration));
             }
         }
@@ -181,6 +187,7 @@ namespace Blocktrotter.Screens
                 return;
             }
             if (!_session.UseHint(App.Hints).HasValue) return;
+            App.Sound.Play(Sfx.Hint);
             App.SaveProgress();
             AfterBoardChanged();
         }
@@ -188,6 +195,7 @@ namespace Blocktrotter.Screens
         private void OnUndo()
         {
             if (_board.InputLocked || !_session.Undo()) return;
+            App.Sound.Play(Sfx.Undo);
             _board.Sync(_session.Board);
             RefreshHud();
         }
@@ -240,11 +248,13 @@ namespace Blocktrotter.Screens
                 Vector2.one * (BoardSize + BoardFrame * 2));
             UiFactory.Image(frame, Theme.BoardFrameColor);
             RectTransform inner = UiFactory.Rect("Board", frame, Vector2.zero, Vector2.one * BoardSize);
-            UiFactory.Image(inner, Theme.BoardColor);
+            Image boardImage = UiFactory.Image(inner, Color.white, BlockSkins.Board(Theme, Core.Board.DefaultSize));
+            boardImage.type = Image.Type.Simple;
 
             _board = inner.gameObject.AddComponent<BoardView>();
-            _board.Init(Theme, App.Config);
+            _board.Init(Theme, App.Config, BoardFrame);
             _board.OnMoveRequested += OnMoveRequested;
+            _board.OnExitLaunch += () => App.Sound.Play(Sfx.TargetExit);
         }
 
         private void BuildBottomButtons()
@@ -254,10 +264,10 @@ namespace Blocktrotter.Screens
             UiFactory.IconButton("Pause", Root, new Vector2(x, ButtonRowY), ButtonSize, ProceduralIcons.Pause, IconSize,
                 Theme.ButtonColor, Theme.TextColor, () => SetPaused(true));
             Button hint = UiFactory.IconButton("Hint", Root, new Vector2(x + step, ButtonRowY), ButtonSize, ProceduralIcons.Bulb, IconSize,
-                Theme.ButtonColor, Theme.ExitColor, OnHint);
+                Theme.ButtonColor, Theme.ExitColor, OnHint, tapSound: false);
             _hintLabel = UiFactory.Badge((RectTransform)hint.transform, 64f, Theme.TargetColor, Theme.TextColor);
             UiFactory.IconButton("Undo", Root, new Vector2(x + 2 * step, ButtonRowY), ButtonSize, ProceduralIcons.Undo, IconSize,
-                Theme.ButtonColor, Theme.TextColor, OnUndo);
+                Theme.ButtonColor, Theme.TextColor, OnUndo, tapSound: false);
             UiFactory.IconButton("Restart", Root, new Vector2(x + 3 * step, ButtonRowY), ButtonSize, ProceduralIcons.Restart, IconSize,
                 Theme.ButtonColor, Theme.TextColor, OnRestart);
         }

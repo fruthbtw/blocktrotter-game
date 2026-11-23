@@ -19,11 +19,20 @@ MonoBehaviour:
   TextColor: {r: 1, g: 1, b: 1, a: 1}
   ButtonColor: {r: 0.6117647, g: 0.39215687, b: 0.21176471, a: 1}
   BoardFrameColor: {r: 0.36078432, g: 0.22745098, b: 0.12941177, a: 1}
-  BoardColor: {r: 0.7254902, g: 0.47058824, b: 0.24705882, a: 1}
+  BoardColor: {r: 0.5411765, g: 0.3529412, b: 0.18039216, a: 1}
   ExitColor: {r: 1, g: 0.8352941, b: 0.30980393, a: 1}
-  BlockColor: {r: 0.95686275, g: 0.89411765, b: 0.75686276, a: 1}
+  BlockColor: {r: 0.9098039, g: 0.77254903, b: 0.54901963, a: 1}
   BlockShadowColor: {r: 0.41960785, g: 0.26666668, b: 0.13725491, a: 1}
   TargetColor: {r: 0.78431374, g: 0.0627451, b: 0.18039216, a: 1}
+  BlockStyle: 2
+  BlockDetailColor: {r: 0.6627451, g: 0.47058824, b: 0.24705882, a: 1}
+  BlockHighlightColor: {r: 1, g: 0.9411765, b: 0.8117647, a: 1}
+  TargetDetailColor: {r: 0.9490196, g: 0.75686276, b: 0.30588236, a: 1}
+  BlockTexture: {fileID: 2800000, guid: 0f0106ab1b3ed6c4d84b0d834f786b53, type: 3}
+  TargetTexture: {fileID: 2800000, guid: 4cd9e4e1289ba6c45a8ac18c99045685, type: 3}
+  TextureFollowsBlock: 0
+  TextureCellsPerRepeat: 2
+  TargetTextureCellsPerRepeat: 2
   Decor: 2
   DecorColor: {r: 0.8784314, g: 0.6431373, b: 0.34509805, a: 1}
   DecorAccentColor: {r: 1, g: 0.94509804, b: 0.72156864, a: 1}

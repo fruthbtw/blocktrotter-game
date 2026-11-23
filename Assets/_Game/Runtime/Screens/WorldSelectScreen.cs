@@ -40,6 +40,7 @@ namespace Blocktrotter.Screens
             button.interactable = unlocked;
             int w = world;
             button.onClick.AddListener(() => App.ShowLevels(w));
+            UiFactory.AddClickFeedback(button);
 
             // Mini board swatch in the world's colours.
             RectTransform swatch = UiFactory.Rect("Swatch", card, new Vector2(-340, 0), new Vector2(170, 170));

@@ -77,6 +77,7 @@ namespace Blocktrotter.Screens
             button.targetGraphic = image;
             button.interactable = unlocked;
             button.onClick.AddListener(() => App.PlayLevel(levelIndex));
+            UiFactory.AddClickFeedback(button);
 
             RectTransform number = UiFactory.Rect("Number", cell, new Vector2(0, 26), new Vector2(CellWidth, 100));
             UiFactory.Label(number, (levelIndex + 1).ToString(), 64, Theme.TextColor);

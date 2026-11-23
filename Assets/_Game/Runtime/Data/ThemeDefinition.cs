@@ -14,6 +14,26 @@ namespace Blocktrotter.Data
     }
 
     /// <summary>
+    /// How a world's blocks are drawn (see BlockSkins). Each look is original and drawn
+    /// in code; wood is deliberately avoided so the game never resembles other block puzzles.
+    /// </summary>
+    public enum BlockStyle
+    {
+        /// <summary>Flat colour with bevel lighting.</summary>
+        Plain,
+        /// <summary>Garden: bamboo stalks with nodes; target in red lacquer with gold bands.</summary>
+        Bamboo,
+        /// <summary>Desert: carved sandstone bricks; target with a gold-and-lapis band.</summary>
+        Sandstone,
+        /// <summary>Island: frosted sea glass; target striped like a life ring.</summary>
+        SeaGlass,
+        /// <summary>Arctic: cracked ice; target with a snow cap.</summary>
+        Ice,
+        /// <summary>Neon city: dark body with a glowing edge; target pulses.</summary>
+        Neon
+    }
+
+    /// <summary>
     /// Colours for one world (Japanese garden, Egyptian desert, ...). Everything is
     /// drawn from these colours in code — no third-party art.
     /// </summary>
@@ -42,6 +62,26 @@ namespace Blocktrotter.Data
         public Color BlockColor = new Color32(0xEC, 0xDC, 0xB0, 0xFF);
         public Color BlockShadowColor = new Color32(0x2A, 0x33, 0x27, 0xFF);
         public Color TargetColor = new Color32(0xD7, 0x26, 0x3D, 0xFF);
+
+        [Header("Block skin")]
+        public BlockStyle BlockStyle = BlockStyle.Plain;
+        [Tooltip("Pattern lines on normal blocks (bamboo nodes, mortar, cracks, neon edge).")]
+        public Color BlockDetailColor = new Color32(0x8A, 0x7A, 0x50, 0xFF);
+        [Tooltip("Light catching the top of blocks (sheen, frost, gloss).")]
+        public Color BlockHighlightColor = new Color32(0xFF, 0xFF, 0xFF, 0xFF);
+        [Tooltip("Accent on the red block (gold bands, life-ring stripes, snow, neon edge).")]
+        public Color TargetDetailColor = new Color32(0xF2, 0xC1, 0x4E, 0xFF);
+
+        [Tooltip("Optional seamless texture for normal blocks (repeats once per cell, runs along the block). Empty = drawn in code.")]
+        public Texture2D BlockTexture;
+        [Tooltip("Optional seamless texture for the red block. Empty = drawn in code.")]
+        public Texture2D TargetTexture;
+        [Tooltip("On: the texture turns with the block (bamboo stalks follow it). Off: it stays upright (carvings, waves).")]
+        public bool TextureFollowsBlock = true;
+        [Tooltip("Board cells one repeat of the block texture covers (bigger = larger pattern).")]
+        [Min(0.25f)] public float TextureCellsPerRepeat = 1f;
+        [Tooltip("Board cells one repeat of the red-block texture covers; 2 fits the 2-cell red block exactly, so no seam shows.")]
+        [Min(0.25f)] public float TargetTextureCellsPerRepeat = 2f;
 
         /// <summary>Colour for text drawn straight on the background: panel colour on light backgrounds, text colour on dark ones.</summary>
         public Color OnBackgroundColor
