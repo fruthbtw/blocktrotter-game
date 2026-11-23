@@ -53,6 +53,51 @@ namespace Blocktrotter.Tests
             Assert.IsTrue(policy.TryConsumeInterstitial(1000 + MinInterval));
         }
 
+        private const double EverySeconds = 200.0;
+        private const double Start = 10.0;
+
+        [Test]
+        public void TimeTrigger_FiresAfterIntervalEvenWithFewSolves()
+        {
+            var policy = new AdPolicy(SolvesPerAd, MinInterval, EverySeconds, Start);
+            policy.RegisterSolve();
+
+            Assert.IsFalse(policy.TryConsumeInterstitial(Start + EverySeconds - 1));
+            Assert.IsTrue(policy.TryConsumeInterstitial(Start + EverySeconds));
+        }
+
+        [Test]
+        public void TimeTrigger_RestartsAfterAnInterstitial()
+        {
+            var policy = new AdPolicy(SolvesPerAd, MinInterval, EverySeconds, Start);
+            policy.TryConsumeInterstitial(Start + EverySeconds);   // shown at t = 210
+            policy.RegisterSolve();
+
+            Assert.IsFalse(policy.TryConsumeInterstitial(Start + 2 * EverySeconds - 1));
+            Assert.IsTrue(policy.TryConsumeInterstitial(Start + 2 * EverySeconds));
+        }
+
+        [Test]
+        public void SolvesTrigger_StillFiresBeforeTimeRunsOut()
+        {
+            var policy = new AdPolicy(SolvesPerAd, MinInterval, EverySeconds, Start);
+            Solve(policy, SolvesPerAd);
+
+            Assert.IsTrue(policy.TryConsumeInterstitial(Start + 60));
+        }
+
+        [Test]
+        public void SolvesTrigger_ResetsTheTimer()
+        {
+            var policy = new AdPolicy(SolvesPerAd, MinInterval, EverySeconds, Start);
+            Solve(policy, SolvesPerAd);
+            policy.TryConsumeInterstitial(Start + 150);   // shown by solves at t = 160
+
+            // 200 s after start but only 50 s after the last ad: not due yet.
+            Assert.IsFalse(policy.TryConsumeInterstitial(Start + EverySeconds));
+            Assert.IsTrue(policy.TryConsumeInterstitial(Start + 150 + EverySeconds));
+        }
+
         [Test]
         public void DeclinedByCooldown_KeepsSolveCount()
         {

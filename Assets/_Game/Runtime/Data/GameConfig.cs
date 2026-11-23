@@ -22,6 +22,9 @@ namespace Blocktrotter.Data
         [Tooltip("Show an interstitial after every N solved levels.")]
         [Min(1)] public int InterstitialEveryLevels = 5;
 
+        [Tooltip("Also show an interstitial once this many seconds have passed since the last one (checked only at the solved panel's Next, never mid-puzzle).")]
+        [Min(1f)] public float InterstitialEverySeconds = 200f;
+
         [Tooltip("Never show two interstitials closer than this (seconds).")]
         [Min(0f)] public float InterstitialMinIntervalSeconds = 45f;
 

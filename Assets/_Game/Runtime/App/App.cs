@@ -94,7 +94,8 @@ namespace Blocktrotter.AppShell
 
             EnsureEventSystem();
             BuildCanvas();
-            AdPolicy = new AdPolicy(_config.InterstitialEveryLevels, _config.InterstitialMinIntervalSeconds);
+            AdPolicy = new AdPolicy(_config.InterstitialEveryLevels, _config.InterstitialMinIntervalSeconds,
+                _config.InterstitialEverySeconds, Time.realtimeSinceStartupAsDouble);
             Ads = CreateAdService();
             OpenFromArgs();
             Ads.Initialize(UpdateBanner);
